@@ -5,7 +5,7 @@ from typing import Any, ClassVar
 
 from typing_extensions import Self
 
-from ._grouping import CoreGroup, group
+from ._grouping import Group, group
 from ._scene import Scene
 
 
@@ -27,7 +27,7 @@ class NodeMixinSorter(type):
         return new_type
 
 
-@group(CoreGroup.NODE)
+@group(Group.NODE)
 class Node(metaclass=NodeMixinSorter):
     _uid_counter: ClassVar[count[int]] = count(0, 1)
 

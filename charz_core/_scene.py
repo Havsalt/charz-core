@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Any
 
 from typing_extensions import Self
 
-from ._grouping import CoreGroup
+from ._grouping import Group
 from ._annotations import GroupID
 
 if TYPE_CHECKING:
@@ -52,14 +52,14 @@ class Scene(metaclass=SceneClassProperties):
         # NOTE: lazyloading `Group`
         # do import here to prevent cycling dependencies,
         # as there won't be a lot of scene creation
-        from ._grouping import CoreGroup
+        from ._grouping import Group
 
         # NOTE: when instantiating the scene,
         #       it will be set as the current one
         #     - use preloading to surpass
         Scene._current = instance
         instance.nodes = []
-        instance.groups = {group: {} for group in CoreGroup}
+        instance.groups = {group: {} for group in Group}
         instance._queued_nodes = []
         return instance
 
@@ -72,7 +72,7 @@ class Scene(metaclass=SceneClassProperties):
 
     def __str__(self) -> str:
         group_counts = ", ".join(
-            f"{group}: {len(self.groups[group])}" for group in CoreGroup
+            f"{group}: {len(self.groups[group])}" for group in Group
         )
         return f"{self.__class__.__name__}({group_counts})"
 
@@ -100,7 +100,7 @@ class Scene(metaclass=SceneClassProperties):
         # NOTE: `list` is faster than `tuple`, when copying
         # iterate a copy (hence the use of `list(...)`)
         # to allow node creation during iteration
-        for node in list(self.groups[CoreGroup.NODE].values()):
+        for node in list(self.groups[Group.NODE].values()):
             node.update(delta)
 
         # free queued nodes
