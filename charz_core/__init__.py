@@ -24,7 +24,7 @@ Includes
 - Decorators
   - `group`
 - Enums
-  - `CoreGroup`
+  - `Group`
 - Components
   - `Transform`
 - Nodes
@@ -40,7 +40,7 @@ __all__ = [
     "Camera",
     "Scene",
     "group",
-    "CoreGroup",
+    "Group",
     "Node",
     "Self",
     "Node2D",
@@ -67,7 +67,7 @@ from ._engine import Engine
 from ._clock import Clock, DeltaClock
 from ._camera import Camera
 from ._scene import Scene
-from ._grouping import CoreGroup, group
+from ._grouping import Group, group
 from ._node import Node
 from ._components._transform import Transform
 from ._prefabs._node2d import Node2D

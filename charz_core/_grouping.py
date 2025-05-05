@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 # TODO: Use `StrEnum` for Python 3.11+
 @unique
-class CoreGroup(str, Enum):
+class Group(str, Enum):
     # NOTE: variants in this enum produces the same hash as if it was using normal `str`
     NODE = "node"
 
