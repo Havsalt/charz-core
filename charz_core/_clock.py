@@ -3,19 +3,17 @@ from __future__ import annotations
 import time
 from typing import Literal
 
+from ._non_negative import NonNegative
+
 
 class Clock:
     """`Clock` base class, without delta time"""
 
-    _tps: float | None = None
+    tps = NonNegative[float](0)
 
-    @property
-    def tps(self) -> float | None:
-        return self._tps
-
-    @tps.setter
-    def tps(self, value: float | None) -> None:
-        self._tps = value
+    def __str__(self) -> str:
+        tps = self.tps
+        return f"{self.__class__.__name__}({tps=})"
 
     @property
     def delta(self) -> Literal[0]:
@@ -40,24 +38,20 @@ class DeltaClock(Clock):
         self._last_tick = time.perf_counter()
 
     @property
-    def tps(self) -> float | None:
-        return self._tps
-
-    @tps.setter
-    def tps(self, value: float | None) -> None:
-        self._tps = value
-        if value is not None:
-            self._target_delta = 1.0 / value
-
-    @property
     def delta(self) -> float:
         return self._delta
 
     def tick(self) -> None:
         """Sleeps for the remaining time to maintain desired `tps`"""
         current_time = time.perf_counter()
+
+        if self.tps == 0:  # skip sleeping if `.tps` is zero
+            self._last_tick = current_time
+            return
+
+        target_delta = 1.0 / self.tps  # seconds
         elapsed_time = current_time - self._last_tick
-        sleep_time = self._target_delta - elapsed_time
+        sleep_time = target_delta - elapsed_time
         if sleep_time > 0:
             time.sleep(sleep_time)
             self._last_tick = time.perf_counter()
