@@ -71,9 +71,7 @@ class Scene(metaclass=SceneClassProperties):
         return instance
 
     def __str__(self) -> str:
-        group_counts = ", ".join(
-            f"{group}: {len(self.groups[group])}" for group in Group
-        )
+        group_counts = ", ".join(f"{group}: {len(self.groups[group])}" for group in Group)
         return f"{self.__class__.__name__}({group_counts})"
 
     def __init__(self) -> None:  # override in subclass
