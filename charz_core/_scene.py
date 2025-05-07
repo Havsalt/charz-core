@@ -40,7 +40,6 @@ class Scene(metaclass=SceneClassProperties):
     NOTE (Technical): A `Scene` hitting reference count of `0`
     will reduce the reference count to its nodes by `1`
     """
-
     # values are set in `Scene.__new__`
     nodes: list[Node]
     groups: defaultdict[GroupID, dict[NodeID, Node]]
