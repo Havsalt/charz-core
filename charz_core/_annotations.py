@@ -17,7 +17,6 @@ from typing import (
     Hashable as _Hashable,
     Protocol as _Protocol,
     runtime_checkable as _runtime_checkable,
-    TYPE_CHECKING as _TYPE_CHECKING,
 )
 
 from linflex import Vec2 as _Vec2
@@ -25,9 +24,6 @@ from typing_extensions import (
     LiteralString as _LiteralString,
     Self as _Self,
 )
-
-if _TYPE_CHECKING:
-    from ._clock import DeltaClock as _DeltaClock
 
 T = _TypeVar("T")
 NodeID: _TypeAlias = int
@@ -37,13 +33,14 @@ GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
 @_runtime_checkable
 class Engine(_Protocol):
     fps: float
-    clock: _DeltaClock
-    _is_running: bool
 
     @property
     def is_running(self) -> bool: ...
     @is_running.setter
     def is_running(self, run_state: bool) -> None: ...
+    def process(self) -> None: ...
+    def update(self) -> None: ...
+    def run(self) -> None: ...
 
 
 @_runtime_checkable
@@ -52,7 +49,7 @@ class Node(_Protocol):
 
     def __init__(self) -> None: ...
     def with_parent(self, parent: Node | None, /) -> _Self: ...
-    def update(self, delta: float) -> None: ...
+    def update(self) -> None: ...
     def queue_free(self) -> None: ...
     def _free(self) -> None: ...
 

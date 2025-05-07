@@ -53,16 +53,16 @@ def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
         if (original_free := getattr(kind, "_free", None)) is not None:
 
             @wraps(original_free)
-            def free_wrapper(self: Node) -> None:
+            def free_wrapper(this: Node) -> None:
                 if original_free is not None:
-                    original_free()
-                del Scene.current.groups[group_id][self.uid]
+                    original_free(this)
+                del Scene.current.groups[group_id][this.uid]
 
             kind._free = free_wrapper  # type: ignore
         else:
 
-            def free(self: Node) -> None:
-                del Scene.current.groups[group_id][self.uid]
+            def free(this: Node) -> None:
+                del Scene.current.groups[group_id][this.uid]
 
             free.__name__ = "_free"
             kind._free = free  # type: ignore

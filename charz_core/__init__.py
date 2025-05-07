@@ -18,8 +18,6 @@ Includes
   - `Vec3`
 - Framework
   - `Engine`
-  - `Clock`
-  - `DeltaClock`
   - `Scene`
 - Decorators
   - `group`
@@ -35,8 +33,6 @@ Includes
 
 __all__ = [
     "Engine",
-    "Clock",
-    "DeltaClock",
     "Camera",
     "Scene",
     "group",
@@ -64,7 +60,6 @@ from linflex import lerp, sign, clamp, Vec2, Vec2i, Vec3
 
 # exports
 from ._engine import Engine
-from ._clock import Clock, DeltaClock
 from ._camera import Camera
 from ._scene import Scene
 from ._grouping import Group, group

@@ -86,24 +86,23 @@ class Scene(metaclass=SceneClassProperties):
             return node
         raise ValueError()
 
-    def process(self, delta: float) -> None:
-        self.update(delta)
-
+    def process(self) -> None:
+        self.update()
         # NOTE: `list` is faster than `tuple`, when copying
         # iterate a copy (hence the use of `list(...)`)
         # to allow node creation during iteration
         for node in list(self.groups[Group.NODE].values()):
-            node.update(delta)
-
+            node.update()
         # free queued nodes
         for queued_node in self._queued_nodes:
             queued_node._free()
         self._queued_nodes *= 0  # NOTE: faster way to do `.clear()`
+
+    def update(self) -> None:
+        """Called each frame"""
 
     def on_enter(self) -> None:
         """Triggered when this scene is set as the current one"""
 
     def on_exit(self) -> None:
         """Triggered when this scene is no longer the current one"""
-
-    def update(self, delta: float) -> None: ...

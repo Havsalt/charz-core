@@ -1,10 +1,5 @@
 from __future__ import annotations
 
-from typing import Any
-
-from typing_extensions import Self
-
-from ._clock import Clock
 from ._scene import Scene
 
 
@@ -28,15 +23,8 @@ class EngineMixinSorter(type):
 
 class Engine(metaclass=EngineMixinSorter):
     fps: float | None = None
-    clock: Clock = Clock()
     # using setter and getter to prevent subclass def overriding
     _is_running: bool = False
-
-    def __new__(cls, *args: Any, **kwargs: Any) -> Self:
-        instance = super().__new__(cls, *args, **kwargs)
-        # set `.clock.tps` with `.fps` set from class attribute
-        instance.clock.tps = instance.fps
-        return instance
 
     @property
     def is_running(self) -> bool:
@@ -46,21 +34,14 @@ class Engine(metaclass=EngineMixinSorter):
     def is_running(self, run_state: bool) -> None:
         self._is_running = run_state
 
-    def update(self, delta: float) -> None: ...
-
     def process(self) -> None:
-        # update engine
-        self.update(self.clock.delta)
+        self.update()
+        Scene.current.process()
 
-        # update nodes in current scene and scene itself
-        Scene.current.process(self.clock.delta)
-
-        # sleep remaining time
-        self.clock.tick()
+    def update(self) -> None:
+        """Called each frame"""
 
     def run(self) -> None:  # main loop function
-        # activate control property
         self.is_running = True
-
         while self.is_running:  # main loop
             self.process()

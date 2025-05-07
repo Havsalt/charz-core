@@ -52,7 +52,8 @@ class Node(metaclass=NodeMixinSorter):
     def __str__(self) -> str:
         return f"{self.__class__.__name__}(#{self.uid})"
 
-    def update(self, delta: float) -> None: ...
+    def update(self) -> None:
+        """Called each frame"""
 
     def queue_free(self) -> None:
         if self not in Scene.current._queued_nodes:
