@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import defaultdict
 from typing import TYPE_CHECKING, Any
 
 from typing_extensions import Self
@@ -8,7 +9,6 @@ from ._grouping import Group
 from ._annotations import GroupID
 
 if TYPE_CHECKING:
-    from ._engine import Engine
     from ._node import Node
 
 
@@ -38,28 +38,22 @@ class Scene(metaclass=SceneClassProperties):
     created in that `__init__` will be added to that subclass's group of nodes
 
     NOTE (Technical): A `Scene` hitting reference count of `0`
-    will reduce reference count to its nodes by `1`
+    will reduce the reference count to its nodes by `1`
     """
 
-    # many of these are set in `Scene.__new__`
+    # mutable values are set in `Scene.__new__`
     nodes: list[Node]
-    groups: dict[GroupID, dict[int, Node]]
-    root_ref: Engine | None = None
+    groups: defaultdict[GroupID, dict[int, Node]]
     _queued_nodes: list[Node]
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Self:
         instance = super().__new__(cls, *args, **kwargs)
-        # NOTE: lazyloading `Group`
-        # do import here to prevent cycling dependencies,
-        # as there won't be a lot of scene creation
-        from ._grouping import Group
-
         # NOTE: when instantiating the scene,
         #       it will be set as the current one
         #     - use preloading to surpass
         Scene._current = instance
         instance.nodes = []
-        instance.groups = {group: {} for group in Group}
+        instance.groups = defaultdict(dict)
         instance._queued_nodes = []
         return instance
 
