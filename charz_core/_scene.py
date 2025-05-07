@@ -83,7 +83,7 @@ class Scene(metaclass=SceneClassProperties):
     def get_first_group_member(self, group_id: GroupID, /) -> Node:
         for node in self.groups[group_id].values():
             return node
-        raise ValueError()
+        raise ValueError(f"no node in group {group_id}")
 
     def process(self) -> None:
         self.update()
