@@ -41,7 +41,7 @@ class Scene(metaclass=SceneClassProperties):
     will reduce the reference count to its nodes by `1`
     """
 
-    # mutable values are set in `Scene.__new__`
+    # values are set in `Scene.__new__`
     nodes: list[Node]
     groups: defaultdict[GroupID, dict[int, Node]]
     _queued_nodes: list[Node]
