@@ -45,7 +45,6 @@ class Camera(Node2D, metaclass=CameraClassAttributes):
         self,
         parent: Node | None = None,
         *,
-        process_priority: int | None = None,
         position: Vec2 | None = None,
         rotation: float | None = None,
         top_level: bool | None = None,
@@ -54,8 +53,6 @@ class Camera(Node2D, metaclass=CameraClassAttributes):
     ) -> None:
         if parent is not None:
             self.parent = parent
-        if process_priority is not None:
-            self.process_priority = process_priority
         if position is not None:
             self.position = position
         if rotation is not None:

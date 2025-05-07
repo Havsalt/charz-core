@@ -40,7 +40,6 @@ class Node(metaclass=NodeMixinSorter):
 
     uid: NodeID  # is set in `Node.__new__`
     parent: Node | None = None
-    process_priority: int = 0  # TODO: implement or remove
 
     def __init__(self, parent: Node | None = None) -> None:
         if parent is not None:
@@ -48,10 +47,6 @@ class Node(metaclass=NodeMixinSorter):
 
     def with_parent(self, parent: Node | None, /) -> Self:
         self.parent = parent
-        return self
-
-    def with_process_priority(self, process_priority: int, /) -> Self:
-        self.process_priority = process_priority
         return self
 
     def __str__(self) -> str:

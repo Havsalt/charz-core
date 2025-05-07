@@ -11,14 +11,11 @@ class Node2D(Transform, Node):
         self,
         parent: Node | None = None,
         *,
-        process_priority: int | None = None,
         position: Vec2 | None = None,
         rotation: float | None = None,
         top_level: bool | None = None,
     ) -> None:
         super().__init__(parent=parent)
-        if process_priority is not None:
-            self.process_priority = process_priority
         if position is not None:
             self.position = position
         if rotation is not None:
