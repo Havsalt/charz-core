@@ -30,7 +30,7 @@ if _TYPE_CHECKING:
     from ._clock import DeltaClock as _DeltaClock
 
 T = _TypeVar("T")
-NodeID: _TypeAlias = int 
+NodeID: _TypeAlias = int
 GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
 
 
