@@ -32,8 +32,6 @@ GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
 
 @_runtime_checkable
 class Engine(_Protocol):
-    fps: float
-
     @property
     def is_running(self) -> bool: ...
     @is_running.setter

@@ -22,7 +22,6 @@ class EngineMixinSorter(type):
 
 
 class Engine(metaclass=EngineMixinSorter):
-    fps: float | None = None
     # using setter and getter to prevent subclass def overriding
     _is_running: bool = False
 
