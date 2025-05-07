@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Any
 from typing_extensions import Self
 
 from ._grouping import Group
-from ._annotations import GroupID
+from ._annotations import GroupID, NodeID
 
 if TYPE_CHECKING:
     from ._node import Node
@@ -43,7 +43,7 @@ class Scene(metaclass=SceneClassProperties):
 
     # values are set in `Scene.__new__`
     nodes: list[Node]
-    groups: defaultdict[GroupID, dict[int, Node]]
+    groups: defaultdict[GroupID, dict[NodeID, Node]]
     _queued_nodes: list[Node]
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Self:

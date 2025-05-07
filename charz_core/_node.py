@@ -7,6 +7,7 @@ from typing_extensions import Self
 
 from ._grouping import Group, group
 from ._scene import Scene
+from ._annotations import NodeID
 
 
 class NodeMixinSorter(type):
@@ -29,7 +30,7 @@ class NodeMixinSorter(type):
 
 @group(Group.NODE)
 class Node(metaclass=NodeMixinSorter):
-    _uid_counter: ClassVar[count[int]] = count(0, 1)
+    _uid_counter: ClassVar[count[NodeID]] = count(0, 1)
 
     def __new__(cls, *_args: Any, **_kwargs: Any) -> Self:
         # NOTE: additional args and kwargs are ignored!
@@ -37,7 +38,7 @@ class Node(metaclass=NodeMixinSorter):
         instance.uid = next(Node._uid_counter)
         return instance
 
-    uid: int  # is set in `Node.__new__`
+    uid: NodeID  # is set in `Node.__new__`
     parent: Node | None = None
     process_priority: int = 0  # TODO: implement or remove
 

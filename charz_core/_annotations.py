@@ -30,7 +30,8 @@ if _TYPE_CHECKING:
     from ._clock import DeltaClock as _DeltaClock
 
 T = _TypeVar("T")
-GroupID: _TypeAlias = _LiteralString | int | _Hashable
+NodeID: _TypeAlias = int 
+GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
 
 
 @_runtime_checkable
@@ -47,7 +48,7 @@ class Engine(_Protocol):
 
 @_runtime_checkable
 class Node(_Protocol):
-    uid: int
+    uid: NodeID
 
     def __init__(self) -> None: ...
     def with_parent(self, parent: Node | None, /) -> _Self: ...
