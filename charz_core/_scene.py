@@ -18,7 +18,7 @@ class SceneClassProperties(type):
     @property
     def current(cls) -> Scene:
         if not hasattr(cls, "_current"):
-            cls._current = Scene()  # Create default scene if none exists
+            cls._current = cls()  # create default scene if none exists
         return cls._current
 
     @current.setter
