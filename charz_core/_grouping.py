@@ -32,7 +32,7 @@ def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
     Returns:
         Callable[[type[T]], type[T]]: Wrapped class
     """
-    # NOTE: lazyloading `Group`
+    # NOTE: lazyloading `Scene`
     # do import here to prevent cycling dependencies,
     # as there won't be a lot of scene creation
     from ._scene import Scene
