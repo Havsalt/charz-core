@@ -7,7 +7,7 @@ from linflex import Vec2
 from typing_extensions import Self
 
 
-class Transform:  # Component (mixin class)
+class TransformComponent:  # Component (mixin class)
     def __new__(cls, *args: Any, **kwargs: Any) -> Self:
         instance = super().__new__(cls, *args, **kwargs)
         if (class_position := getattr(instance, "position", None)) is not None:
@@ -103,7 +103,7 @@ class Transform:  # Component (mixin class)
             return self.position.copy()
         global_position = self.position.copy()
         parent = self.parent  # type: ignore
-        while isinstance(parent, Transform):
+        while isinstance(parent, TransformComponent):
             # check for rotation, since cos(0) and sin(0) produces *approximate* values
             if parent.rotation:
                 global_position = parent.position + global_position.rotated(
@@ -133,7 +133,7 @@ class Transform:  # Component (mixin class)
             return self.rotation
         global_rotation = self.rotation
         parent = self.parent  # type: ignore
-        while isinstance(parent, Transform):
+        while isinstance(parent, TransformComponent):
             global_rotation += parent.rotation
             if parent.top_level:
                 return global_rotation

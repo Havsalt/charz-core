@@ -3,10 +3,10 @@ from __future__ import annotations as _annotations
 from linflex import Vec2
 
 from .._node import Node
-from .._components._transform import Transform
+from .._components._transform import TransformComponent
 
 
-class Node2D(Transform, Node):
+class Node2D(TransformComponent, Node):
     def __init__(
         self,
         parent: Node | None = None,
