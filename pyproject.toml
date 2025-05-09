@@ -6,7 +6,7 @@ authors = [
     { name = "Havsalt", email = "77575424+Havsalt@users.noreply.github.com" }
 ]
 dependencies = [
-    "linflex~=0.2.0",
+    "linflex~=0.3.0",
     "typing-extensions>=4.4.0",
 ]
 readme = "README.md"

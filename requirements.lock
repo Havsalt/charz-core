@@ -10,7 +10,7 @@
 #   universal: false
 
 -e file:.
-linflex==0.2.2
+linflex==0.3.0
     # via charz-core
 typing-extensions==4.13.2
     # via charz-core
