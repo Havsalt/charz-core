@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from enum import Flag, unique, auto
+from typing import Literal
 
 from linflex import Vec2
 from typing_extensions import Self
@@ -49,7 +50,7 @@ class Camera(Node2D, metaclass=CameraClassAttributes):
         rotation: float | None = None,
         top_level: bool | None = None,
         mode: CameraMode | None = None,
-        current: bool | None = False,
+        current: Literal[True] | None = None,
     ) -> None:
         if parent is not None:
             self.parent = parent
@@ -61,7 +62,7 @@ class Camera(Node2D, metaclass=CameraClassAttributes):
             self.top_level = top_level
         if mode is not None:
             self.mode = mode
-        if current is not None:
+        if current is True:
             self.set_current()
 
     def set_current(self) -> None:

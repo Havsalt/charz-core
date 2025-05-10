@@ -20,7 +20,7 @@ class Node2D(TransformComponent, Node):
             self.position = position
         if rotation is not None:
             self.rotation = rotation
-        if top_level:  # `bool` and `None` check combined
+        if top_level is not None:
             self.top_level = top_level
 
     def __str__(self) -> str:
