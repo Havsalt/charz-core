@@ -13,6 +13,7 @@ Includes
   - `lerp`
   - `sign`
   - `clamp`
+  - `move_toward`
   - `Vec2`
   - `Vec2i`
   - `Vec3`
@@ -44,6 +45,7 @@ __all__ = [
     "lerp",
     "sign",
     "clamp",
+    "move_toward",
     "Vec2",
     "Vec2i",
     "Vec3",
@@ -56,7 +58,7 @@ if _sys.version_info >= (3, 11):
     from typing import Self
 else:
     from typing_extensions import Self
-from linflex import lerp, sign, clamp, Vec2, Vec2i, Vec3
+from linflex import lerp, sign, clamp, move_toward, Vec2, Vec2i, Vec3
 
 # exports
 from ._engine import Engine
