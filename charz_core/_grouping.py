@@ -43,8 +43,6 @@ def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
         @wraps(original_new)
         def new_wrapper(cls: type[T], *args: Any, **kwargs: Any) -> T:
             instance = original_new(cls, *args, **kwargs)
-            if group_id not in Scene.current.groups:
-                Scene.current.groups[group_id] = {}
             Scene.current.groups[group_id][instance.uid] = instance  # type: ignore
             return instance
 
