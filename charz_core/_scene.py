@@ -124,8 +124,8 @@ def free_queued_nodes(instance: Scene) -> None:
     instance._queued_nodes *= 0  # Faster way to do `.clear()`
 
 
-# Register frame tasks to `Scene` class.
-# Priorities are chosen with enough room to insert many more tasks in between.
+# Register frame tasks to `Scene` class
+# Priorities are chosen with enough room to insert many more tasks in between
 Scene.frame_tasks[100] = update_self
 Scene.frame_tasks[90] = update_nodes
 Scene.frame_tasks[80] = free_queued_nodes
