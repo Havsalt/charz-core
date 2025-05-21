@@ -27,6 +27,7 @@ class EngineMixinSorter(type):
 
 
 class Engine(metaclass=EngineMixinSorter):
+    # tasks are shared across all engines
     frame_tasks: ClassVar[FrameTaskManager[Self]] = FrameTaskManager()
     # using setter and getter to prevent subclass def overriding
     _is_running: bool = False
