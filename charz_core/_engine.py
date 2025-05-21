@@ -61,7 +61,7 @@ def process_current_scene(_instance: Engine) -> None:
     Scene.current.process()
 
 
-# Register frame tasks to `Scene` class
+# Register frame tasks to `Engine` class
 # Priorities are chosen with enough room to insert many more tasks in between
 Engine.frame_tasks[100] = update_self
 Engine.frame_tasks[90] = process_current_scene
