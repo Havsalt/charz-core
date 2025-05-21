@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, ClassVar, Any
 
 from typing_extensions import Self
 
+from ._frame_task import FrameTaskManager
 from ._grouping import Group
 from ._annotations import GroupID, NodeID
 
@@ -41,6 +42,8 @@ class Scene(metaclass=SceneClassProperties):
     will reduce the reference count to its nodes by `1`
     """
 
+    # tasks are shared across all scenes
+    frame_tasks: ClassVar[FrameTaskManager] = FrameTaskManager()
     # values are set in `Scene.__new__`
     nodes: list[Node]
     groups: defaultdict[GroupID, dict[NodeID, Node]]
@@ -87,16 +90,26 @@ class Scene(metaclass=SceneClassProperties):
         raise ValueError(f"no node in group {group_id}")
 
     def process(self) -> None:
-        self.update()
+        for frame_task in self.frame_tasks.values():
+            frame_task(self)
+
+    @staticmethod
+    def _update_self(instance: Scene) -> None:
+        instance.update()
+
+    @staticmethod
+    def _update_nodes(instance: Scene) -> None:
         # NOTE: `list` is faster than `tuple`, when copying
         # iterate a copy (hence the use of `list(...)`)
         # to allow node creation during iteration
-        for node in list(self.groups[Group.NODE].values()):
+        for node in list(instance.groups[Group.NODE].values()):
             node.update()
-        # free queued nodes
-        for queued_node in self._queued_nodes:
+
+    @staticmethod
+    def _free_queued_nodes(instance: Scene) -> None:
+        for queued_node in instance._queued_nodes:
             queued_node._free()
-        self._queued_nodes *= 0  # NOTE: faster way to do `.clear()`
+        instance._queued_nodes *= 0  # NOTE: faster way to do `.clear()`
 
     def update(self) -> None:
         """Called each frame"""
@@ -106,3 +119,10 @@ class Scene(metaclass=SceneClassProperties):
 
     def on_exit(self) -> None:
         """Triggered when this scene is no longer the current one"""
+
+
+# register frame tasks to `Scene` class.
+# priorities are chosen with enough room to insert many more tasks in between.
+Scene.frame_tasks[100] = Scene._update_self
+Scene.frame_tasks[90] = Scene._update_nodes
+Scene.frame_tasks[80] = Scene._free_queued_nodes
