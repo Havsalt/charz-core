@@ -1,5 +1,10 @@
 from __future__ import annotations
 
+from typing import ClassVar
+
+from typing_extensions import Self
+
+from ._frame_task import FrameTaskManager
 from ._scene import Scene
 
 
@@ -22,6 +27,7 @@ class EngineMixinSorter(type):
 
 
 class Engine(metaclass=EngineMixinSorter):
+    frame_tasks: ClassVar[FrameTaskManager[Self]] = FrameTaskManager()
     # using setter and getter to prevent subclass def overriding
     _is_running: bool = False
 
@@ -33,14 +39,27 @@ class Engine(metaclass=EngineMixinSorter):
     def is_running(self, run_state: bool) -> None:
         self._is_running = run_state
 
-    def process(self) -> None:
-        self.update()
-        Scene.current.process()
-
     def update(self) -> None:
         """Called each frame"""
 
     def run(self) -> None:  # main loop function
         self.is_running = True
         while self.is_running:  # main loop
-            self.process()
+            for frame_task in self.frame_tasks.values():
+                frame_task(self)
+
+
+# define frame tasks for `Engine`
+
+
+def update_self(instance: Engine) -> None:
+    instance.update()
+
+
+def process_current_scene(_instance: Engine) -> None:
+    Scene.current.process()
+
+
+# register frame tasks
+Engine.frame_tasks[100] = update_self
+Engine.frame_tasks[90] = process_current_scene
