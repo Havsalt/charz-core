@@ -19,7 +19,7 @@ class SceneClassProperties(type):
     @property
     def current(cls) -> Scene:
         if not hasattr(cls, "_current"):
-            cls._current = cls()  # create default scene if none exists
+            cls._current = cls()  # Create default scene if none exists
         return cls._current
 
     @current.setter
@@ -42,18 +42,18 @@ class Scene(metaclass=SceneClassProperties):
     will reduce the reference count to its nodes by `1`
     """
 
-    # tasks are shared across all scenes
+    # Tasks are shared across all scenes
     frame_tasks: ClassVar[FrameTaskManager[Self]] = FrameTaskManager()
-    # values are set in `Scene.__new__`
+    # Values are set in `Scene.__new__`
     nodes: list[Node]
     groups: defaultdict[GroupID, dict[NodeID, Node]]
     _queued_nodes: list[Node]
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Self:
         instance = super().__new__(cls, *args, **kwargs)
-        # NOTE: when instantiating the scene,
+        # NOTE: When instantiating the scene,
         #       it will be set as the current one
-        #     - use preloading to surpass
+        #     - Use preloading to surpass
         Scene._current = instance
         instance.nodes = []
         instance.groups = defaultdict(dict)
@@ -71,7 +71,7 @@ class Scene(metaclass=SceneClassProperties):
         group_counts = ", ".join(f"{group}: {len(self.groups[group])}" for group in Group)
         return f"{self.__class__.__name__}({group_counts})"
 
-    def __init__(self) -> None:  # override in subclass
+    def __init__(self) -> None:  # Override in subclass
         """Override to instantiate nodes and state related to this scene"""
 
     def set_current(self) -> None:
@@ -103,7 +103,7 @@ class Scene(metaclass=SceneClassProperties):
         """Triggered when this scene is no longer the current one"""
 
 
-# define frame tasks for `Scene`
+# Define frame tasks for `Scene`
 
 
 def update_self(instance: Scene) -> None:
@@ -113,7 +113,7 @@ def update_self(instance: Scene) -> None:
 def update_nodes(instance: Scene) -> None:
     # NOTE: `list` is faster than `tuple`, when copying
     # iterate a copy (hence the use of `list(...)`)
-    # to allow node creation during iteration
+    # This allows node creation during iteration
     for node in list(instance.groups[Group.NODE].values()):
         node.update()
 
@@ -121,11 +121,11 @@ def update_nodes(instance: Scene) -> None:
 def free_queued_nodes(instance: Scene) -> None:
     for queued_node in instance._queued_nodes:
         queued_node._free()
-    instance._queued_nodes *= 0  # NOTE: faster way to do `.clear()`
+    instance._queued_nodes *= 0  # Faster way to do `.clear()`
 
 
-# register frame tasks to `Scene` class.
-# priorities are chosen with enough room to insert many more tasks in between.
+# Register frame tasks to `Scene` class.
+# Priorities are chosen with enough room to insert many more tasks in between.
 Scene.frame_tasks[100] = update_self
 Scene.frame_tasks[90] = update_nodes
 Scene.frame_tasks[80] = free_queued_nodes

@@ -33,12 +33,12 @@ class Node(metaclass=NodeMixinSorter):
     _uid_counter: ClassVar[count[NodeID]] = count(0, 1)
 
     def __new__(cls, *_args: Any, **_kwargs: Any) -> Self:
-        # NOTE: additional args and kwargs are ignored!
+        # NOTE: Additional args and kwargs are ignored!
         instance = super().__new__(cls)
         instance.uid = next(Node._uid_counter)
         return instance
 
-    uid: NodeID  # is set in `Node.__new__`
+    uid: NodeID  # Is set in `Node.__new__`
     parent: Node | None = None
 
     def __init__(self, parent: Node | None = None) -> None:
@@ -59,4 +59,4 @@ class Node(metaclass=NodeMixinSorter):
         if self not in Scene.current._queued_nodes:
             Scene.current._queued_nodes.append(self)
 
-    def _free(self) -> None: ...  # overridden by using `@group`
+    def _free(self) -> None: ...  # Overridden by using `@group`

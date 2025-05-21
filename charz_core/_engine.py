@@ -27,9 +27,9 @@ class EngineMixinSorter(type):
 
 
 class Engine(metaclass=EngineMixinSorter):
-    # tasks are shared across all engines
+    # Tasks are shared across all engines
     frame_tasks: ClassVar[FrameTaskManager[Self]] = FrameTaskManager()
-    # using setter and getter to prevent subclass def overriding
+    # Using setter and getter to prevent subclass def overriding
     _is_running: bool = False
 
     @property
@@ -43,14 +43,14 @@ class Engine(metaclass=EngineMixinSorter):
     def update(self) -> None:
         """Called each frame"""
 
-    def run(self) -> None:  # main loop function
+    def run(self) -> None:  # Main loop function
         self.is_running = True
-        while self.is_running:  # main loop
+        while self.is_running:  # Main loop
             for frame_task in self.frame_tasks.values():
                 frame_task(self)
 
 
-# define frame tasks for `Engine`
+# Define frame tasks for `Engine`
 
 
 def update_self(instance: Engine) -> None:
@@ -61,6 +61,6 @@ def process_current_scene(_instance: Engine) -> None:
     Scene.current.process()
 
 
-# register frame tasks
+# Register frame tasks
 Engine.frame_tasks[100] = update_self
 Engine.frame_tasks[90] = process_current_scene

@@ -20,7 +20,7 @@ class TransformComponent:  # Component (mixin class)
     rotation: float = 0
     top_level: bool = False
 
-    # TODO: would be nice to figure out @overload with this function
+    # TODO: Would be nice to figure out @overload with this function
     def with_position(
         self,
         position: Vec2 | None = None,
@@ -43,7 +43,7 @@ class TransformComponent:  # Component (mixin class)
             self.position.y = y
         return self
 
-    # TODO: would be nice to figure out @overload with this function
+    # TODO: Would be nice to figure out @overload with this function
     def with_global_position(
         self,
         global_position: Vec2 | None = None,
@@ -104,7 +104,7 @@ class TransformComponent:  # Component (mixin class)
         global_position = self.position.copy()
         parent = self.parent  # type: ignore
         while isinstance(parent, TransformComponent):
-            # check for rotation, since cos(0) and sin(0) produces *approximate* values
+            # Check for rotation, since cos(0) and sin(0) produces *approximate* values
             if parent.rotation:
                 global_position = parent.position + global_position.rotated(
                     parent.rotation

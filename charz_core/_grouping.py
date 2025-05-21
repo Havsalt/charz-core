@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 # TODO: Use `StrEnum` for Python 3.11+
 @unique
 class Group(str, Enum):
-    # NOTE: variants in this enum produces the same hash as if it was using normal `str`
+    # NOTE: Variants in this enum produces the same hash as if it was using normal `str`
     NODE = "node"
 
 
@@ -32,8 +32,8 @@ def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
     Returns:
         Callable[[type[T]], type[T]]: Wrapped class
     """
-    # NOTE: lazyloading `Scene`
-    # do import here to prevent cycling dependencies,
+    # NOTE: Lazyloading `Scene`
+    # Do import here to prevent cycling dependencies,
     # as there won't be a lot of scene creation
     from ._scene import Scene
 

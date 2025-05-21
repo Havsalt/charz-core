@@ -51,7 +51,7 @@ __all__ = [
     "Vec3",
 ]
 
-# re-exports
+# Re-exports
 import sys as _sys
 
 if _sys.version_info >= (3, 11):
@@ -60,7 +60,7 @@ else:
     from typing_extensions import Self
 from linflex import lerp, sign, clamp, move_toward, Vec2, Vec2i, Vec3
 
-# exports
+# Exports
 from ._engine import Engine
 from ._camera import Camera
 from ._scene import Scene
