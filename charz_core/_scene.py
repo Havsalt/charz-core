@@ -72,7 +72,7 @@ class Scene(metaclass=SceneClassProperties):
         return f"{self.__class__.__name__}({group_counts})"
 
     def __init__(self) -> None:  # override in subclass
-        ...  # this is where node instantiation goes
+        """Override to instantiate nodes and state related to this scene"""
 
     def set_current(self) -> None:
         Scene.current = self
