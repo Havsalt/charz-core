@@ -12,7 +12,7 @@
 -e file:.
 colorama==0.4.6
     # via pytest
-exceptiongroup==1.2.2
+exceptiongroup==1.3.0
     # via pytest
 iniconfig==2.1.0
     # via pytest
@@ -27,4 +27,5 @@ tomli==2.2.1
     # via pytest
 typing-extensions==4.13.2
     # via charz-core
+    # via exceptiongroup
     # via linflex
