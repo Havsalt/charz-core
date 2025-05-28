@@ -1,5 +1,5 @@
 """
-Custom Annotations for Charz
+Custom Annotations for `charz-core`
 ============================
 
 This file contains private annotations used across this package.
