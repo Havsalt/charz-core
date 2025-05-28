@@ -47,15 +47,12 @@ class Node(metaclass=NodeMixinSorter):
         if parent is not None:
             self.parent = parent
 
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(#{self.uid})"
+
     def with_parent(self, parent: Node | None, /) -> Self:
         self.parent = parent
         return self
-
-    def __str__(self) -> str:
-        return f"{self.__class__.__name__}(#{self.uid})"
-
-    def __repr__(self) -> str:
-        return self.__str__()
 
     def update(self) -> None:
         """Called each frame"""

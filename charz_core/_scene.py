@@ -67,12 +67,12 @@ class Scene(metaclass=SceneClassProperties):
         Scene.current = previous_scene
         return instance
 
-    def __str__(self) -> str:
-        group_counts = ", ".join(f"{group}: {len(self.groups[group])}" for group in Group)
-        return f"{self.__class__.__name__}({group_counts})"
-
     def __init__(self) -> None:  # Override in subclass
         """Override to instantiate nodes and state related to this scene"""
+
+    def __repr__(self) -> str:
+        group_counts = ", ".join(f"{group}: {len(self.groups[group])}" for group in Group)
+        return f"{self.__class__.__name__}({group_counts})"
 
     def set_current(self) -> None:
         Scene.current = self

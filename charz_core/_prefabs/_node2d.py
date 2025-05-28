@@ -23,7 +23,7 @@ class Node2D(TransformComponent, Node):
         if top_level is not None:
             self.top_level = top_level
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return (
             self.__class__.__name__
             + "("
