@@ -20,8 +20,10 @@ class NodeMixinSorter(type):
         attrs: dict[str, object],
     ) -> type:
         def sorter(base: type) -> bool:
-            # TODO?: Add extra point for being the exact type `Node`
-            return isinstance(base, Node)
+            # Ensures `Node` will be last in MRO (except for `object`),
+            # to help `__new__` chain for nodes (instances of `Node`/`Node` subclass)
+            # work despite wrong order in subclass declaration
+            return issubclass(base, Node)
 
         sorted_bases = tuple(sorted(bases, key=sorter))
         new_type = super().__new__(cls, name, sorted_bases, attrs)
