@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from enum import Enum, unique
+import sys
+from enum import unique
 from functools import wraps
 from typing import TYPE_CHECKING, Callable, Any
 
@@ -10,11 +11,20 @@ if TYPE_CHECKING:
     from ._node import Node
 
 
-# TODO: Use `StrEnum` for Python 3.11+
-@unique
-class Group(str, Enum):
-    # NOTE: Variants in this enum produces the same hash as if it was using normal `str`
-    NODE = "node"
+# NOTE: Variants of the enum produces the same hash as if it was using normal `str`
+if sys.version_info >= (3, 11):
+    from enum import StrEnum, auto
+
+    @unique
+    class Group(StrEnum):
+        NODE = auto()
+
+else:
+    from enum import Enum
+
+    @unique
+    class Group(str, Enum):
+        NODE = "node"
 
 
 def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
