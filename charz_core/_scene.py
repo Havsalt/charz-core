@@ -82,6 +82,9 @@ class Scene(metaclass=SceneClassProperties):
         return self
 
     def get_group_members(self, group_id: GroupID, /) -> list[Node]:
+        # NOTE: Return type `list` is faster than `tuple`,
+        #       when copying iterate a copy (hence the use of `list(...)`)
+        #       This allows node creation during iteration
         return list(self.groups[group_id].values())
 
     def get_first_group_member(self, group_id: GroupID, /) -> Node:
@@ -103,28 +106,25 @@ class Scene(metaclass=SceneClassProperties):
         """Triggered when this scene is no longer the current one"""
 
 
-# Define frame tasks for `Scene`
+# Define core frame tasks
 
 
-def update_self(instance: Scene) -> None:
-    instance.update()
+def update_self(current_scene: Scene) -> None:
+    current_scene.update()
 
 
-def update_nodes(instance: Scene) -> None:
-    # NOTE: `list` is faster than `tuple`, when copying
-    # iterate a copy (hence the use of `list(...)`)
-    # This allows node creation during iteration
-    for node in list(instance.groups[Group.NODE].values()):
+def update_nodes(current_scene: Scene) -> None:
+    for node in current_scene.get_group_members(Group.NODE):
         node.update()
 
 
-def free_queued_nodes(instance: Scene) -> None:
-    for queued_node in instance._queued_nodes:
+def free_queued_nodes(current_scene: Scene) -> None:
+    for queued_node in current_scene._queued_nodes:
         queued_node._free()
-    instance._queued_nodes *= 0  # Faster way to do `.clear()`
+    current_scene._queued_nodes *= 0  # Faster way to do `.clear()`
 
 
-# Register frame tasks to `Scene` class
+# Register core frame tasks
 # Priorities are chosen with enough room to insert many more tasks in between
 Scene.frame_tasks[100] = update_self
 Scene.frame_tasks[90] = update_nodes

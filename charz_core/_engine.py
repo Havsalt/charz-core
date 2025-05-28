@@ -52,18 +52,18 @@ class Engine(metaclass=EngineMixinSorter):
                 frame_task(self)
 
 
-# Define frame tasks for `Engine`
+# Define core frame tasks
 
 
-def update_self(instance: Engine) -> None:
-    instance.update()
+def update_self(engine: Engine) -> None:
+    engine.update()
 
 
-def process_current_scene(_instance: Engine) -> None:
+def process_current_scene(_engine: Engine) -> None:
     Scene.current.process()
 
 
-# Register frame tasks to `Engine` class
+# Register core frame tasks
 # Priorities are chosen with enough room to insert many more tasks in between
 Engine.frame_tasks[100] = update_self
 Engine.frame_tasks[90] = process_current_scene
