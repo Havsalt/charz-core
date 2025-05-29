@@ -69,7 +69,10 @@ class Engine(metaclass=EngineMixinSorter):
         self._is_running = run_state
 
     def update(self) -> None:
-        """Called each frame"""
+        """Called each frame.
+        
+        Override this method in new subclass to implement custom update logic.
+        """
 
     def run(self) -> None:
         """Run app/game, which will start the main loop.

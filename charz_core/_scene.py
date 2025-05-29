@@ -129,13 +129,16 @@ class Scene(metaclass=SceneClassProperties):
             frame_task(self)
 
     def update(self) -> None:
-        """Called each frame"""
+        """Called each frame.
+        
+        Override this method in new subclass to implement custom update logic.
+        """
 
     def on_enter(self) -> None:
-        """Triggered when this scene is set as the current one"""
+        """Triggered when this scene is set as the current one."""
 
     def on_exit(self) -> None:
-        """Triggered when this scene is no longer the current one"""
+        """Triggered when this scene is no longer the current one."""
 
 
 # Define core frame tasks
