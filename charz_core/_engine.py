@@ -9,7 +9,7 @@ from ._scene import Scene
 
 
 class EngineMixinSorter(type):
-    """Engine metaclass for initializing `Engine` subclass after other `mixin` classes"""
+    """Metaclass for sorting `Engine` to be the last base in MRO."""
 
     def __new__(
         cls,
@@ -29,6 +29,16 @@ class EngineMixinSorter(type):
 
 
 class Engine(metaclass=EngineMixinSorter):
+    """`Engine` for managing the game loop and frame tasks.
+
+    Subclass this to create your main entry class.
+    >>> class MyGame(Engine):
+    >>>     def __init__(self) -> None:
+    >>>         # Initialize your nodes, preload scenes, etc.
+    >>>     def update(self) -> None:
+    >>>         # Your game logic here
+    """
+
     # Tasks are shared across all engines
     frame_tasks: ClassVar[FrameTaskManager[Self]] = FrameTaskManager()
     # Using setter and getter to prevent subclass def overriding
@@ -36,18 +46,38 @@ class Engine(metaclass=EngineMixinSorter):
 
     @property
     def is_running(self) -> bool:
+        """Check if main loop is running.
+
+        This attribute is wrapped in a property to protect it from being
+        overridden by subclass definitions.
+        This will signal the type checker the following is not allowed:
+        >>> class MyGame(Engine):
+        >>>     is_running: bool = True  # Invalid type, reported by type checker
+
+        Returns:
+            bool: `True` if the main loop is running, `False` otherwise.
+        """
         return self._is_running
 
     @is_running.setter
     def is_running(self, run_state: bool) -> None:
+        """Set the running state of the main loop.
+
+        Args:
+            run_state (bool): `True` to start/continue the main loop, `False` to stop it.
+        """
         self._is_running = run_state
 
     def update(self) -> None:
         """Called each frame"""
 
-    def run(self) -> None:  # Main loop function
+    def run(self) -> None:
+        """Run app/game, which will start the main loop.
+
+        This will run the main loop until `is_running` is set to `False`.
+        """
         self.is_running = True
-        while self.is_running:  # Main loop
+        while self.is_running:
             for frame_task in self.frame_tasks.values():
                 frame_task(self)
 
@@ -56,10 +86,12 @@ class Engine(metaclass=EngineMixinSorter):
 
 
 def update_self(engine: Engine) -> None:
+    """Update the engine itself, calling its `update` method."""
     engine.update()
 
 
 def process_current_scene(_engine: Engine) -> None:
+    """Process the current scene (`Scene.current`), calling its `process` method."""
     Scene.current.process()
 
 

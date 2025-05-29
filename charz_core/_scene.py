@@ -30,16 +30,16 @@ class SceneClassProperties(type):
 
 
 class Scene(metaclass=SceneClassProperties):
-    """`Scene` to encapsulate dimensions/worlds
+    """`Scene` to encapsulate dimensions/worlds.
 
     When a node is created, it will be handled by the currently active `Scene`.
-    If no `Scene` is created, a default `Scene` will be created and set as the active one
+    If no `Scene` is created, a default `Scene` will be created and set as the active one.
 
     By subclassing `Scene`, and implementing `__init__`, all nodes
-    created in that `__init__` will be added to that subclass's group of nodes
+    created in that `__init__` will be added to that subclass's group of nodes.
 
-    NOTE (Technical): A `Scene` hitting reference count of `0`
-    will reduce the reference count to its nodes by `1`
+    `NOTE (Technical)` A `Scene` hitting reference count of `0`
+    will reduce the reference count to its nodes by `1`.
     """
 
     # Tasks are shared across all scenes
@@ -62,37 +62,69 @@ class Scene(metaclass=SceneClassProperties):
 
     @classmethod
     def preload(cls) -> Self:
+        """Preload the scene class, creating an instance without setting it as current.
+
+        Returns:
+            Self: An instance of the scene class, without setting it as current.
+        """
         previous_scene = Scene.current
         instance = cls()
         Scene.current = previous_scene
         return instance
 
     def __init__(self) -> None:  # Override in subclass
-        """Override to instantiate nodes and state related to this scene"""
+        """Override to instantiate nodes and state related to this scene."""
 
     def __repr__(self) -> str:
         group_counts = ", ".join(f"{group}: {len(self.groups[group])}" for group in Group)
         return f"{self.__class__.__name__}({group_counts})"
 
     def set_current(self) -> None:
+        """Set this scene as the current one."""
         Scene.current = self
 
     def as_current(self) -> Self:
+        """Chained method to set this scene as the current one."""
         self.set_current()
         return self
 
     def get_group_members(self, group_id: GroupID, /) -> list[Node]:
+        """Get all members of a specific group.
+
+        Args:
+            group_id (GroupID): The ID of the group to retrieve members from.
+
+        Returns:
+            list[Node]: A list of nodes in the specified group.
+        """
         # NOTE: Return type `list` is faster than `tuple`,
         #       when copying iterate a copy (hence the use of `list(...)`)
         #       This allows node creation during iteration
         return list(self.groups[group_id].values())
 
     def get_first_group_member(self, group_id: GroupID, /) -> Node:
+        """Get the first member of a specific group.
+
+        Args:
+            group_id (GroupID): The ID of the group to retrieve the first member from.
+
+        Returns:
+            Node: The first node in the specified group.
+
+        Raises:
+            ValueError: If the group is empty.
+        """
         for node in self.groups[group_id].values():
             return node
-        raise ValueError(f"no node in group {group_id}")
+        raise ValueError(f"No node in group {group_id}")
 
     def process(self) -> None:
+        """Process the scene, executing all frame tasks.
+
+        This method is called each frame to update the scene and its nodes,
+        but can also be called manually to simulate time step.
+        It will execute all registered frame tasks in the order of their priority.
+        """
         for frame_task in self.frame_tasks.values():
             frame_task(self)
 
@@ -110,15 +142,18 @@ class Scene(metaclass=SceneClassProperties):
 
 
 def update_self(current_scene: Scene) -> None:
+    """Update the scene itself, calling `update` on current scene."""
     current_scene.update()
 
 
 def update_nodes(current_scene: Scene) -> None:
+    """Update all nodes in the current scene, calling `update` on each node."""
     for node in current_scene.get_group_members(Group.NODE):
         node.update()
 
 
 def free_queued_nodes(current_scene: Scene) -> None:
+    """Free all queued nodes in the current scene, called at the end of each frame."""
     for queued_node in current_scene._queued_nodes:
         queued_node._free()
     current_scene._queued_nodes *= 0  # Faster way to do `.clear()`

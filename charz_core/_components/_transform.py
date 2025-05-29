@@ -5,9 +5,24 @@ from typing import Any
 
 from linflex import Vec2
 from typing_extensions import Self
+from typing import overload
 
 
 class TransformComponent:  # Component (mixin class)
+    """`TransformComponent` mixin class for node.
+
+    Attributes:
+        `position`: `Vec2` - Position in local space.
+        `rotation`: `float` - Angle in radians.
+        `top_level`: `bool` - Indiating if the node is a top-level node.
+        `global_position`: `Vec2` `Property` - Position in world space.
+        `global_rotation`: `float` `Property` Rotation in world space.
+
+    Methods:
+        `set_global_x`
+        `set_global_y`
+    """
+
     def __new__(cls, *args: Any, **kwargs: Any) -> Self:
         instance = super().__new__(cls, *args, **kwargs)
         if (class_position := getattr(instance, "position", None)) is not None:
@@ -20,19 +35,51 @@ class TransformComponent:  # Component (mixin class)
     rotation: float = 0
     top_level: bool = False
 
-    # TODO: Would be nice to figure out @overload with this function
+    @overload
     def with_position(
+        self,
+        position: Vec2,
+        /,
+    ) -> Self: ...
+
+    @overload
+    def with_position(
+        self,
+        *,
+        x: float,
+        y: float,
+    ) -> Self: ...
+
+    def with_position(  # type: ignore[override]
         self,
         position: Vec2 | None = None,
         /,
+        *,
         x: float | None = None,
         y: float | None = None,
     ) -> Self:
+        """Chained method to set the node's position.
+
+        This method allows you to set the position of the node,
+        using either a `Vec2` instance or individual `x` and `y` coordinates.
+
+        Args:
+            position (Vec2 | None, optional): Position of the node. Defaults to None.
+            x (float | None, optional): X-coordinate of the node. Defaults to None.
+            y (float | None, optional): Y-coordinate of the node. Defaults to None.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
         if position is None and x is None and y is None:
-            raise TypeError(f"not all arguments can be {None} at the same time")
+            raise TypeError(f"Not all arguments can be {None} at the same time")
         if position is not None and (x is not None or y is not None):
             raise TypeError(
-                "chose either positional argument 'position' "
+                "Chose either positional argument 'position' "
                 "or keyword arguments 'x' and/or 'y', not all three"
             )
         if position is not None:
@@ -43,19 +90,52 @@ class TransformComponent:  # Component (mixin class)
             self.position.y = y
         return self
 
-    # TODO: Would be nice to figure out @overload with this function
+    @overload
     def with_global_position(
+        self,
+        global_position: Vec2,
+        /,
+    ) -> Self: ...
+
+    @overload
+    def with_global_position(
+        self,
+        /,
+        *,
+        x: float,
+        y: float,
+    ) -> Self: ...
+
+    def with_global_position(  # type: ignore[override]
         self,
         global_position: Vec2 | None = None,
         /,
+        *,
         x: float | None = None,
         y: float | None = None,
     ) -> Self:
+        """Chained method to set the node's global position.
+
+        This method allows you to set the global position of the node,
+        using either a `Vec2` instance or individual `x` and `y` coordinates.
+
+        Args:
+            global_position (Vec2 | None, optional): Global position. Defaults to None.
+            x (float | None, optional): Global x-coordinate of node. Defaults to None.
+            y (float | None, optional): Global y-coordinate of node. Defaults to None.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `global_position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
         if global_position is None and x is None and y is None:
-            raise TypeError(f"not all arguments can be {None} at the same time")
+            raise TypeError(f"Not all arguments can be {None} at the same time")
         if global_position is not None and (x is not None or y is not None):
             raise TypeError(
-                "chose either positional argument 'global_position' "
+                "Chose either positional argument 'global_position' "
                 "or keyword arguments 'x' and/or 'y', not all three"
             )
         if global_position is not None:
@@ -67,37 +147,73 @@ class TransformComponent:  # Component (mixin class)
         return self
 
     def with_rotation(self, rotation: float, /) -> Self:
+        """Chained method to set the node's `rotation`.
+
+        Args:
+            rotation (float): Rotation in radians.
+
+        Returns:
+            Self: Same node instance.
+        """
         self.rotation = rotation
         return self
 
     def with_global_rotation(self, global_rotation: float, /) -> Self:
+        """Chained method to set the node's `global_rotation`.
+
+        Args:
+            global_rotation (float): Global rotation in radians.
+
+        Returns:
+            Self: Same node instance.
+        """
         self.global_rotation = global_rotation
         return self
 
     def with_top_level(self, state: bool = True, /) -> Self:
+        """Chained method to set the node's `top_level` state.
+
+        Args:
+            state (bool, optional): Whether node is a top-level node. Defaults to True.
+
+        Returns:
+            Self: Same node instance.
+        """
         self.top_level = state
         return self
 
     def set_global_x(self, x: float, /) -> None:
+        """Set node's global x-coordinate.
+
+        Args:
+            x (float): Global x-coordinate.
+        """
         diff_x = x - self.global_position.x
         self.position.x += diff_x
 
     def set_global_y(self, y: float, /) -> None:
+        """Set node's global y-coordinate.
+
+        Args:
+            y (float): Global y-coordinate.
+        """
         diff_y = y - self.global_position.y
         self.position.y += diff_y
 
     @property
     def global_position(self) -> Vec2:
-        """Returns a copy of the node's global position (in world space)
+        """Computes a copy of the node's global position (world space).
 
-        `NOTE`: Cannot do `self.global_position.x += 5`,
-        use `self.position += 5` instead, as it only adds a relative value
+        `NOTE` Cannot do the following:
+        >>> self.global_position.x += 5
+        >>> self.global_position.x = 42
 
-        `NOTE`: Cannot do `self.global_position.x = 42`,
-        use `self.set_global_x(42)`
+        Instead, you should use:
+        >>> self.position.x += 5
+        >>> self.set_global_x(42)
 
         Returns:
-            Vec2: copy of global position
+            Vec2: Copy of global position.
         """
         if self.top_level:
             return self.position.copy()
@@ -118,16 +234,20 @@ class TransformComponent:  # Component (mixin class)
 
     @global_position.setter
     def global_position(self, position: Vec2) -> None:
-        """Sets the node's global position (world space)"""
+        """Set node's global position (world space).
+
+        Args:
+            position (Vec2): Global position.
+        """
         diff = position - self.global_position
         self.position += diff
 
     @property
     def global_rotation(self) -> float:
-        """Computes the node's global rotation (world space)
+        """Computes node's global rotation (world space).
 
         Returns:
-            float: global rotation in radians
+            float: Global rotation in radians.
         """
         if self.top_level:
             return self.rotation
@@ -142,6 +262,10 @@ class TransformComponent:  # Component (mixin class)
 
     @global_rotation.setter
     def global_rotation(self, rotation: float) -> None:
-        """Sets the node's global rotation (world space)"""
+        """Set node's global rotation (world space).
+
+        Args:
+            rotation (float): Global rotation in radians.
+        """
         diff = rotation - self.global_rotation
         self.rotation += diff

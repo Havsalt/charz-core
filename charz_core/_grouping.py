@@ -17,6 +17,8 @@ if sys.version_info >= (3, 11):
 
     @unique
     class Group(StrEnum):
+        """Enum for core groups."""
+
         NODE = auto()
 
 else:
@@ -24,17 +26,17 @@ else:
 
     @unique
     class Group(str, Enum):
+        """Enum for core groups."""
+
         NODE = "node"
 
 
 def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
-    """Adds a `node`/`component` to the given `group`
+    """Adds a `node`/`component` to the given `group`.
 
-    This works by wrapping `__new__` and `_free`
-
-    Recommended types for parameter `group_id`: `LiteralString`, `StrEnum` or `int`
-
-    NOTE: Each node is added to the current scene's group when `__new__` is called
+    This works by wrapping `__new__` and `_free`.
+    Recommended types for parameter `group_id`: `LiteralString`, `StrEnum` or `int`.
+    `NOTE`: Each node is added to the current scene's group when `__new__` is called.
 
     Args:
         group_id (GroupID): *Hashable* object used for group ID
