@@ -130,7 +130,7 @@ class Scene(metaclass=SceneClassProperties):
 
     def update(self) -> None:
         """Called each frame.
-        
+
         Override this method in new subclass to implement custom update logic.
         """
 

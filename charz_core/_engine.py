@@ -70,7 +70,7 @@ class Engine(metaclass=EngineMixinSorter):
 
     def update(self) -> None:
         """Called each frame.
-        
+
         Override this method in new subclass to implement custom update logic.
         """
 
