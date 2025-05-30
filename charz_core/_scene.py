@@ -7,7 +7,7 @@ from typing_extensions import Self
 
 from ._frame_task import FrameTaskManager
 from ._grouping import Group
-from ._annotations import GroupID, NodeID
+from ._annotations import T, GroupID, NodeID
 
 if TYPE_CHECKING:
     from ._node import Node
@@ -88,34 +88,46 @@ class Scene(metaclass=SceneClassProperties):
         self.set_current()
         return self
 
-    def get_group_members(self, group_id: GroupID, /) -> list[Node]:
+    def get_group_members(
+        self,
+        group_id: GroupID,
+        /,
+        type_hint: type[T] = Node,  # Used to hint type checkers of dynamic return type
+    ) -> list[T]:
         """Get all members of a specific group.
 
         Args:
             group_id (GroupID): The ID of the group to retrieve members from.
+            type_hint (type[T], optional): Node type in list returned. Defaults to Node.
 
         Returns:
-            list[Node]: A list of nodes in the specified group.
+            list[T]: A list of nodes in the specified group.
         """
         # NOTE: Return type `list` is faster than `tuple`,
         #       when copying iterate a copy (hence the use of `list(...)`)
         #       This allows node creation during iteration
-        return list(self.groups[group_id].values())
+        return list(self.groups[group_id].values())  # type: ignore
 
-    def get_first_group_member(self, group_id: GroupID, /) -> Node:
+    def get_first_group_member(
+        self,
+        group_id: GroupID,
+        /,
+        type_hint: type[T] = Node,  # Used to hint type checkers of dynamic return type
+    ) -> T:
         """Get the first member of a specific group.
 
         Args:
             group_id (GroupID): The ID of the group to retrieve the first member from.
+            type_hint (type[T], optional): Node type in list returned. Defaults to Node.
 
         Returns:
-            Node: The first node in the specified group.
+            T: The first node in the specified group.
 
         Raises:
             ValueError: If the group is empty.
         """
         for node in self.groups[group_id].values():
-            return node
+            return node  # type: ignore
         raise ValueError(f"No node in group {group_id}")
 
     def process(self) -> None:
