@@ -17,7 +17,7 @@ if sys.version_info >= (3, 11):
 
     @unique
     class Group(StrEnum):
-        """Enum for core groups."""
+        """Enum for core node groups."""
 
         NODE = auto()
 
@@ -26,7 +26,7 @@ else:
 
     @unique
     class Group(str, Enum):
-        """Enum for core groups."""
+        """Enum for core node groups."""
 
         NODE = "node"
 
