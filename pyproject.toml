@@ -31,7 +31,7 @@ classifiers = [
 ]
 
 [build-system]
-requires = ["hatchling==1.26.3"]
+requires = ["hatchling~=1.26.0"]
 build-backend = "hatchling.build"
 
 [tool.rye]
