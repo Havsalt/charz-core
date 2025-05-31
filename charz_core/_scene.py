@@ -13,6 +13,21 @@ if TYPE_CHECKING:
     from ._node import Node
 
 
+def static_load_node_type() -> type[Node]:
+    """Workaround for the static type checker, to prevent circular dependencies."""
+
+    if TYPE_CHECKING:
+        from ._node import Node
+
+        return Node
+    return None  # Value used at runtime
+
+
+# This type variable is never called, as its true value is `None` at runtime
+# Used by the static type checker
+NodeType = static_load_node_type()
+
+
 class SceneClassProperties(type):
     _current: Scene
 
@@ -92,7 +107,8 @@ class Scene(metaclass=SceneClassProperties):
         self,
         group_id: GroupID,
         /,
-        type_hint: type[T] = Node,  # Used to hint type checkers of dynamic return type
+        # Used to hint type checkers of dynamic return type
+        type_hint: type[T] = NodeType,
     ) -> list[T]:
         """Get all members of a specific group.
 
@@ -112,7 +128,8 @@ class Scene(metaclass=SceneClassProperties):
         self,
         group_id: GroupID,
         /,
-        type_hint: type[T] = Node,  # Used to hint type checkers of dynamic return type
+        # Used to hint type checkers of dynamic return type
+        type_hint: type[T] = NodeType,
     ) -> T:
         """Get the first member of a specific group.
 
