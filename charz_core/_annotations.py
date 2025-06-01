@@ -19,7 +19,6 @@ from typing import (
     Hashable as _Hashable,
     Protocol as _Protocol,
     overload as _overload,
-    runtime_checkable as _runtime_checkable,
 )
 
 from linflex import Vec2 as _Vec2
@@ -35,7 +34,6 @@ NodeID: _TypeAlias = int
 GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
 
 
-@_runtime_checkable
 class Engine(_Protocol):
     frame_tasks: _FrameTaskManager[_Self]  # Global across instances
     _is_running: bool
@@ -49,7 +47,6 @@ class Engine(_Protocol):
     def run(self) -> None: ...
 
 
-@_runtime_checkable
 class Node(_Protocol):
     _uid_counter: _ClassVar[_count[NodeID]]
     uid: NodeID
@@ -108,7 +105,6 @@ class TransformComponent(_Protocol):
     def set_global_y(self, y: float, /) -> None: ...
 
 
-@_runtime_checkable
 class TransformNode(
     TransformComponent,
     Node,
