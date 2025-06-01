@@ -11,9 +11,11 @@ it means a type may or may not implement that field or mixin class.
 from __future__ import annotations as _annotations
 
 
+from itertools import count as _count
 from typing import (
     TypeVar as _TypeVar,
     TypeAlias as _TypeAlias,
+    ClassVar as _ClassVar,
     Hashable as _Hashable,
     Protocol as _Protocol,
     overload as _overload,
@@ -26,6 +28,8 @@ from typing_extensions import (
     Self as _Self,
 )
 
+from ._frame_task import FrameTaskManager as _FrameTaskManager
+
 T = _TypeVar("T")
 NodeID: _TypeAlias = int
 GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
@@ -33,6 +37,9 @@ GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
 
 @_runtime_checkable
 class Engine(_Protocol):
+    frame_tasks: _FrameTaskManager[_Self]  # Global across instances
+    _is_running: bool
+
     @property
     def is_running(self) -> bool: ...
     @is_running.setter
@@ -44,6 +51,7 @@ class Engine(_Protocol):
 
 @_runtime_checkable
 class Node(_Protocol):
+    _uid_counter: _ClassVar[_count[NodeID]]
     uid: NodeID
 
     def __init__(self) -> None: ...
@@ -95,6 +103,8 @@ class TransformComponent(_Protocol):
     def global_rotation(self) -> float: ...
     @global_rotation.setter
     def global_rotation(self, rotation: float) -> None: ...
+    def set_global_x(self, x: float, /) -> None: ...
+    def set_global_y(self, y: float, /) -> None: ...
 
 
 @_runtime_checkable
