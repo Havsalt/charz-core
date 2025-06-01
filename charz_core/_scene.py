@@ -15,7 +15,6 @@ if TYPE_CHECKING:
 
 def static_load_node_type() -> type[Node]:
     """Workaround for the static type checker, to prevent circular dependencies."""
-
     if TYPE_CHECKING:
         from ._node import Node
 
