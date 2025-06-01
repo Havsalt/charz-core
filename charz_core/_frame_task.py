@@ -13,7 +13,7 @@ class FrameTaskManager(Generic[T], dict[Priority, FrameTask[T]]):
     `NOTE` The higher the priority, the earlier the task will be executed.
     """
 
-    def __setitem__(self, key: int, value: Callable[[T], None]) -> None:
+    def __setitem__(self, key: Priority, value: FrameTask[T]) -> None:
         super().__setitem__(key, value)
         sorted_items = sorted(self.items(), reverse=True)
         self.clear()
