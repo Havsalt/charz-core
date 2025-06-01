@@ -14,9 +14,9 @@ class TransformComponent:  # Component (mixin class)
     Attributes:
         `position`: `Vec2` - Position in local space.
         `rotation`: `float` - Angle in radians.
-        `top_level`: `bool` - Indiating if the node is a top-level node.
-        `global_position`: `Vec2` `Property` - Position in world space.
-        `global_rotation`: `float` `Property` Rotation in world space.
+        `top_level`: `bool` - Indicating if the node is a top-level node.
+        `global_position`: `property[Vec2]` - Copy of position in world space.
+        `global_rotation`: `property[float]` - Rotation in world space.
 
     Methods:
         `set_global_x`
