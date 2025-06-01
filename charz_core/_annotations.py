@@ -53,6 +53,7 @@ class Engine(_Protocol):
 class Node(_Protocol):
     _uid_counter: _ClassVar[_count[NodeID]]
     uid: NodeID
+    parent: Node | None
 
     def __init__(self) -> None: ...
     def with_parent(self, parent: Node | None, /) -> _Self: ...
