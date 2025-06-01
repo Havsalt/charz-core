@@ -16,6 +16,7 @@ from typing import (
     TypeAlias as _TypeAlias,
     Hashable as _Hashable,
     Protocol as _Protocol,
+    overload as _overload,
     runtime_checkable as _runtime_checkable,
 )
 
@@ -57,19 +58,31 @@ class TransformComponent(_Protocol):
     rotation: float
     top_level: bool
 
+    @_overload
     def with_position(
         self,
-        position: _Vec2 | None = None,
+        position: _Vec2,
         /,
-        x: float | None = None,
-        y: float | None = None,
     ) -> _Self: ...
+    @_overload
+    def with_position(
+        self,
+        *,
+        x: float,
+        y: float,
+    ) -> _Self: ...
+    @_overload
     def with_global_position(
         self,
-        global_position: _Vec2 | None = None,
+        global_position: _Vec2,
         /,
-        x: float | None = None,
-        y: float | None = None,
+    ) -> _Self: ...
+    @_overload
+    def with_global_position(
+        self,
+        *,
+        x: float,
+        y: float,
     ) -> _Self: ...
     def with_rotation(self, rotation: float, /) -> _Self: ...
     def with_global_rotation(self, global_rotation: float, /) -> _Self: ...

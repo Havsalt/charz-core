@@ -100,7 +100,6 @@ class TransformComponent:  # Component (mixin class)
     @overload
     def with_global_position(
         self,
-        /,
         *,
         x: float,
         y: float,
