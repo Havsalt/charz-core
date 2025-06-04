@@ -61,7 +61,7 @@ class Scene(metaclass=SceneClassProperties):
     # Values are set in `Scene.__new__`
     nodes: list[Node]
     groups: defaultdict[GroupID, dict[NodeID, Node]]
-    _queued_nodes: list[Node]
+    _queued_nodes: set[NodeID]
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Self:
         instance = super().__new__(cls, *args, **kwargs)
@@ -71,7 +71,7 @@ class Scene(metaclass=SceneClassProperties):
         Scene._current = instance
         instance.nodes = []
         instance.groups = defaultdict(dict)
-        instance._queued_nodes = []
+        instance._queued_nodes = set()
         return instance
 
     @classmethod
@@ -185,9 +185,10 @@ def update_nodes(current_scene: Scene) -> None:
 
 def free_queued_nodes(current_scene: Scene) -> None:
     """Free all queued nodes in the current scene, called at the end of each frame."""
-    for queued_node in current_scene._queued_nodes:
-        queued_node._free()
-    current_scene._queued_nodes *= 0  # Faster way to do `.clear()`
+    for queued_node_uid in current_scene._queued_nodes:
+        node = current_scene.groups[Group.NODE][queued_node_uid]
+        node._free()
+    current_scene._queued_nodes.clear()
 
 
 # Register core frame tasks

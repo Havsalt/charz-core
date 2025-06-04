@@ -95,8 +95,7 @@ class Node(metaclass=NodeMixinSorter):
         This method should be called when you want to remove the node from the scene.
         It will be freed at the end of the current frame, handled by `Engine.frame_tasks`.
         """
-        if self not in Scene.current._queued_nodes:
-            Scene.current._queued_nodes.append(self)
+        Scene.current._queued_nodes.add(self.uid)
 
     def _free(self) -> None:
         """Placeholder implementation of freeing the node.
