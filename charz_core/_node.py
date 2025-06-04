@@ -99,7 +99,12 @@ class Node(metaclass=NodeMixinSorter):
             Scene.current._queued_nodes.append(self)
 
     def _free(self) -> None:
-        """Actual implementation of freeing the node.
+        """Placeholder implementation of freeing the node.
 
-        Extended by `@group` decorator to handle node removal from the scene.
+        Extended by `@group` decorator to handle node removal from the *current* scene.
+        This is done per group the node instance belongs to,
+        using a `MRO` chain of `_free`.
+
+        `@group` is responsible for implementing a wrapped method,
+        where this dummy method is called at the end.
         """
