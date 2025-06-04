@@ -46,6 +46,11 @@ class SceneClassProperties(type):
 class Scene(metaclass=SceneClassProperties):
     """`Scene` to encapsulate dimensions/worlds.
 
+    Instantiating a scene (either of type `Scene` or subclass of `Scene`),
+    will set that new scene instance to the current scene.
+    `NOTE` Use the *classmethod* `preload` to prevent setting current scene,
+    while still loading nodes (and more) of the returned instance.
+
     When a node is created, it will be handled by the currently active `Scene`.
     If no `Scene` is created, a default `Scene` will be created and set as the active one.
 
