@@ -190,9 +190,10 @@ def update_nodes(current_scene: Scene) -> None:
 
 def free_queued_nodes(current_scene: Scene) -> None:
     """Free all queued nodes in the current scene, called at the end of each frame."""
-    for queued_node_uid in current_scene._queued_nodes:
-        node = current_scene.groups[Group.NODE][queued_node_uid]
-        node._free()
+    for node_id in current_scene._queued_nodes:
+        for group in current_scene.groups.values():
+            if node_id in group:
+                del group[node_id]
     current_scene._queued_nodes.clear()
 
 

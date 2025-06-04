@@ -96,14 +96,3 @@ class Node(metaclass=NodeMixinSorter):
         It will be freed at the end of the current frame, handled by `Engine.frame_tasks`.
         """
         Scene.current._queued_nodes.add(self.uid)
-
-    def _free(self) -> None:
-        """Placeholder implementation of freeing the node.
-
-        Extended by `@group` decorator to handle node removal from the *current* scene.
-        This is done per group the node instance belongs to,
-        using a `MRO` chain of `_free`.
-
-        `@group` is responsible for implementing a wrapped method,
-        where this dummy method is called at the end.
-        """
