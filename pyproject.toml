@@ -38,6 +38,7 @@ build-backend = "hatchling.build"
 managed = true
 dev-dependencies = [
     "pytest>=8.3.4",
+    "keyboard>=0.13.5",
 ]
 
 [tool.hatch.metadata]
