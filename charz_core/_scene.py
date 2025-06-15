@@ -177,7 +177,7 @@ class Scene(metaclass=SceneClassProperties):
 # Define core frame tasks
 
 
-def update_self(current_scene: Scene) -> None:
+def update_self_scene(current_scene: Scene) -> None:
     """Update the scene itself, calling `update` on current scene."""
     current_scene.update()
 
@@ -199,6 +199,6 @@ def free_queued_nodes(current_scene: Scene) -> None:
 
 # Register core frame tasks
 # Priorities are chosen with enough room to insert many more tasks in between
-Scene.frame_tasks[100] = update_self
+Scene.frame_tasks[100] = update_self_scene
 Scene.frame_tasks[90] = update_nodes
 Scene.frame_tasks[80] = free_queued_nodes
