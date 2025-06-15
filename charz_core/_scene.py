@@ -118,7 +118,8 @@ class Scene(metaclass=SceneClassProperties):
 
         Args:
             group_id (GroupID): The ID of the group to retrieve members from.
-            type_hint (type[T], optional): Node type in list returned. Defaults to type[Node].
+            type_hint (type[T], optional): Node type in list returned.
+                Defaults to type[Node].
 
         Returns:
             list[T]: A list of nodes in the specified group.
@@ -139,7 +140,8 @@ class Scene(metaclass=SceneClassProperties):
 
         Args:
             group_id (GroupID): The ID of the group to retrieve the first member from.
-            type_hint (type[T], optional): Node type in list returned. Defaults to type[Node].
+            type_hint (type[T], optional): Node type returned.
+                Defaults to type[Node].
 
         Returns:
             T: The first node in the specified group.
