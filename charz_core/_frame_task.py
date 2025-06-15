@@ -18,3 +18,16 @@ class FrameTaskManager(Generic[T], dict[Priority, FrameTask[T]]):
         sorted_items = sorted(self.items(), reverse=True)
         self.clear()
         self.update(sorted_items)
+
+    def __repr__(self) -> str:
+        # Produces: [Priority]: [Function Name] :: [Function Docstring?]
+        return (
+            self.__class__.__name__
+            + f"[{T}]("
+            + "".join(
+                f"\n| {priority}: {function.__qualname__} -- "
+                f'"{"<No Docstring>" if function.__doc__ is None else function.__doc__}"'
+                for (priority, function) in self.items()
+            )
+            + "\n)"
+        )
