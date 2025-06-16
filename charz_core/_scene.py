@@ -73,7 +73,6 @@ class Scene(metaclass=SceneClassProperties):
     # Tasks are shared across all scenes
     frame_tasks: ClassVar[FrameTaskManager[Self]] = FrameTaskManager()
     # Values are set in `Scene.__new__`
-    nodes: list[Node]
     groups: defaultdict[GroupID, dict[NodeID, Node]]
     _queued_nodes: set[NodeID]
 
@@ -83,7 +82,6 @@ class Scene(metaclass=SceneClassProperties):
         #       it will be set as the current one
         #     - Use preloading to surpass
         Scene._current = instance
-        instance.nodes = []
         instance.groups = defaultdict(dict)
         instance._queued_nodes = set()
         return instance
