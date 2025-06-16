@@ -59,7 +59,7 @@ class Scene(metaclass=SceneClassProperties):
 
     `NOTE (Technical)` A `Scene` hitting reference count of `0`
     will reduce the reference count to its nodes by `1`.
-    
+
     Example:
     --------
     >>> from charz_core import Scene
