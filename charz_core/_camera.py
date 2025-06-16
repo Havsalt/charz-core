@@ -44,13 +44,29 @@ class Camera(Node2D, metaclass=CameraClassAttributes):
     or call `camera.set_current()` on the camera instance.
     To set the current camera and return the instance, use `camera.as_current()`.
 
+    `NOTE` A default `Camera` will be used if not explicitly set.
+
+    Example:
+    >>> from charz_core import Engine, Camera
+    >>> class MyGame(Engine):
+    ...     def __init__(self) -> None:
+    ...         # Configure how the current camera centers the viewport
+    ...         Camera.current.mode = Camera.MODE_CENTERED | Camera.MODE_INCLUDE_SIZE
+
+    Attributes:
+        `current`: `ClassVar[property[Camera]]` - Current camera instance in use.
+        `mode`: `CameraMode` - Mode to decide origin for centering.
+
     Variants for `Camera.mode`:
     - `Camera.MODE_FIXED`: Camera is fixed at upper left corner.
     - `Camera.MODE_CENTERED`: Camera is centered.
     - `Camera.MODE_INCLUDE_SIZE`: Camera includes texture size of parent to camera.
 
-
-    `NOTE` A default `Camera` will be used if not explicitly set.
+    Methods:
+        `set_current`
+        `as_current` `chained`
+        `is_current`
+        `with_mode` `chained`
     """
 
     mode: CameraMode = CameraMode.FIXED
