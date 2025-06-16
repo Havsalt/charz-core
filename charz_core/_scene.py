@@ -52,7 +52,8 @@ class Scene(metaclass=SceneClassProperties):
     while still loading nodes (and more) of the returned instance.
 
     When a node is created, it will be handled by the currently active `Scene`.
-    `NOTE` If no `Scene` is created, a default `Scene` will be created and set as the active one.
+    `NOTE` If no `Scene` is created,
+    a default `Scene` will be created and set as the active one.
 
     By subclassing `Scene`, and implementing `__init__`, all nodes
     created in that `__init__` will be added to that subclass's group of nodes.
