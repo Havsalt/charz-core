@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TypeVar, TypeAlias, Generic, Callable
 
+# NOTE: These annotaion-related variables exist here to prevent circular import error
 T = TypeVar("T")
 Priority: TypeAlias = int
 FrameTask: TypeAlias = Callable[[T], None]
