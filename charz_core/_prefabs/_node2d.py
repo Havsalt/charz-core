@@ -22,7 +22,10 @@ class Node2D(TransformComponent, Node):
         rotation: float | None = None,
         top_level: bool | None = None,
     ) -> None:
-        super().__init__(parent=parent)
+        Node.__init__(
+            self,
+            parent=parent,
+        )
         if position is not None:
             self.position = position
         if rotation is not None:
