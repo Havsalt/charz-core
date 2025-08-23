@@ -81,14 +81,13 @@ class Camera(Node2D, metaclass=CameraClassAttributes):
         mode: CameraMode | None = None,
         current: Literal[True] | None = None,
     ) -> None:
-        if parent is not None:
-            self.parent = parent
-        if position is not None:
-            self.position = position
-        if rotation is not None:
-            self.rotation = rotation
-        if top_level is not None:
-            self.top_level = top_level
+        Node2D.__init__(
+            self,
+            parent=parent,
+            position=position,
+            rotation=rotation,
+            top_level=top_level,
+        )
         if mode is not None:
             self.mode = mode
         if current is True:
