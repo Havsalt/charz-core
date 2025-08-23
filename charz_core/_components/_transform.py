@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from copy import deepcopy
 from typing import Any
 
 from linflex import Vec2
@@ -47,7 +46,7 @@ class TransformComponent:  # Component (mixin class)
     def __new__(cls, *args: Any, **kwargs: Any) -> Self:
         instance = super().__new__(cls, *args, **kwargs)
         if (class_position := getattr(instance, "position", None)) is not None:
-            instance.position = deepcopy(class_position)
+            instance.position = Vec2.copy(class_position)
         else:
             instance.position = Vec2.ZERO
         return instance
