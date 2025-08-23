@@ -43,12 +43,18 @@ class Node(metaclass=NodeMixinSorter):
     which is a dictionary mapping `NodeID` to `Node` instances.
     It keeps the node alive, and prevents it from being garbage collected.
 
+    Example:
+
     Every node will be assigned a unique identifier (`uid`),
     which can be used to reference it within the scene:
-    >>> from charz_core import Scene, Node, Group
-    >>> my_node = Node()
-    >>> reference = Scene.groups[Group.NODE][my_node.uid]
-    >>> assert reference is my_node
+
+    ```python
+    from charz_core import Scene, Node, Group
+
+    my_node = Node()
+    reference = Scene.groups[Group.NODE][my_node.uid]
+    assert reference is my_node
+    ```
 
     The assignment of `uid` is done automatically when the node is created,
     and is guaranteed to be unique within the scene.

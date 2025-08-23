@@ -32,11 +32,17 @@ class Engine(metaclass=EngineMixinSorter):
     """`Engine` for managing the game loop and frame tasks.
 
     Subclass this to create your main entry class.
-    >>> class MyGame(Engine):
-    >>>     def __init__(self) -> None:
-    >>>         # Initialize your nodes, preload scenes, etc.
-    >>>     def update(self) -> None:
-    >>>         # Your game logic here
+
+    Example:
+
+    ```python
+    class MyGame(Engine):
+        def __init__(self) -> None:
+            ... # Initialize your nodes, preload scenes, etc.
+        
+        def update(self) -> None:
+            ... # Your game logic here
+    ```
     """
 
     # Tasks are shared across all engines
@@ -50,9 +56,17 @@ class Engine(metaclass=EngineMixinSorter):
 
         This attribute is wrapped in a property to protect it from being
         overridden by subclass definitions.
+
+        Example:
+
         This will signal the type checker the following is not allowed:
-        >>> class MyGame(Engine):
-        >>>     is_running: bool = True  # Invalid type, reported by type checker
+
+        ```python
+        from charz_core import Engine
+
+        class MyGame(Engine):
+            is_running: bool = True  # Invalid type, reported by type checker
+        ```
 
         Returns:
             bool: `True` if the main loop is running, `False` otherwise.

@@ -48,10 +48,27 @@ class Scene(metaclass=SceneClassProperties):
 
     Instantiating a scene (either of type `Scene` or subclass of `Scene`),
     will set that new scene instance to the current scene.
+
+    Example:
+
+    Structure of a scene and how to declare:
+
+    ```python
+    from charz_core import Scene
+    from .my_files.player import Player
+
+    class InsideHouse(Scene):
+        def __init__(self) -> None:
+            self.player = Player(position=Vec2(5, 7))  # Player when inside house
+            self.table = ...
+            self.chair = ...
+    ```
+
     `NOTE` Use the *classmethod* `preload` to prevent setting current scene,
     while still loading nodes (and more) of the returned instance.
 
     When a node is created, it will be handled by the currently active `Scene`.
+
     `NOTE` If no `Scene` is created,
     a default `Scene` will be created and set as the active one.
 
@@ -60,15 +77,6 @@ class Scene(metaclass=SceneClassProperties):
 
     `NOTE (Technical)` A `Scene` hitting reference count of `0`
     will reduce the reference count to its nodes by `1`.
-
-    Example:
-    --------
-    >>> from charz_core import Scene
-    >>> class InsideHouse(Scene):
-    ...     def __init__(self) -> None:
-    ...         self.player = ...  # Player when inside house
-    ...         self.table = ...
-    ...         self.chair = ...
     """
 
     # Tasks are shared across all scenes

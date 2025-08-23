@@ -47,11 +47,15 @@ class Camera(Node2D, metaclass=CameraClassAttributes):
     `NOTE` A default `Camera` will be used if not explicitly set.
 
     Example:
-    >>> from charz_core import Engine, Camera
-    >>> class MyGame(Engine):
-    ...     def __init__(self) -> None:
-    ...         # Configure how the current camera centers the viewport
-    ...         Camera.current.mode = Camera.MODE_CENTERED | Camera.MODE_INCLUDE_SIZE
+
+    ```python
+    from charz_core import Engine, Camera
+
+    class MyGame(Engine):
+        def __init__(self) -> None:
+            # Configure how the current camera centers the viewport
+            Camera.current.mode = Camera.MODE_CENTERED | Camera.MODE_INCLUDE_SIZE
+    ```
 
     Attributes:
         `current`: `ClassVar[property[Camera]]` - Current camera instance in use.

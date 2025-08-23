@@ -11,6 +11,27 @@ from typing import overload
 class TransformComponent:  # Component (mixin class)
     """`TransformComponent` mixin class for node.
 
+    Examples:
+
+    Composing a 2D node with custom physics component:
+    
+    ```python
+    from charz_core import Node, TransformComponent
+    from .my_files.physics_component import PhysicsComponent
+
+    class PhysicsBody(TransformComponent, PhysicsComponent, Node):
+        ...
+    ```
+
+    *Psudocode* for how `charz_core.Node2D` is composed:
+
+    ```python
+    from charz_core import Node, TransformComponent
+
+    class Node2D(TransformComponent, Node):
+        ...
+    ```
+
     Attributes:
         `position`: `Vec2` - Position in local space.
         `rotation`: `float` - Angle in radians.
@@ -204,12 +225,18 @@ class TransformComponent:  # Component (mixin class)
         """Computes a copy of the node's global position (world space).
 
         `NOTE` Cannot do the following:
-        >>> self.global_position.x += 5
-        >>> self.global_position.x = 42
+
+        ```python
+        self.global_position.x += 5
+        self.global_position.x = 42
+        ```
 
         Instead, you should use:
-        >>> self.position.x += 5
-        >>> self.set_global_x(42)
+
+        ```python
+        self.position.x += 5
+        self.set_global_x(42)
+        ```
 
         Returns:
             Vec2: Copy of global position.

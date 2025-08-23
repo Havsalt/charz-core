@@ -32,12 +32,29 @@ else:
 
 
 def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
-    """Adds a `node`/`component` to the given `group`.
+    """Decorator that adds `node`/`component` to the given `group`.
 
     This works by wrapping `__new__` and `_free`.
     Recommended types for parameter `group_id`: `LiteralString`, `StrEnum` or `int`.
 
-    `NOTE`: Each node is added to the current scene's group when `__new__` is called.
+    `NOTE` Each node is added to the current scene's group when `__new__` is called.
+
+    Example:
+
+    ```python
+    from charz_core import Node2D, Scene, group
+
+    @group("tile")
+    class WorldTile(Node2D):
+        def __init__(self, material_name: str) -> None:
+            self.material_name = material_name
+
+    dirt = WorldTile("Dirt")
+    stone = WorldTile("Stone")
+
+    for tile in Scene.current.get_group_members("tile", type_hint=WorldTile):
+        print(tile.material_name)
+    ```
 
     Args:
         group_id (GroupID): *Hashable* object used for group ID
