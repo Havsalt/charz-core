@@ -10,7 +10,7 @@ it means a type may or may not implement that field or mixin class.
 
 from __future__ import annotations as _annotations
 
-
+import sys as _sys
 from itertools import count as _count
 from typing import (
     TypeVar as _TypeVar,
@@ -22,10 +22,17 @@ from typing import (
 )
 
 from linflex import Vec2 as _Vec2
-from typing_extensions import (
-    LiteralString as _LiteralString,
-    Self as _Self,
-)
+
+if _sys.version_info >= (3, 11):
+    from typing import (
+        LiteralString as _LiteralString,
+        Self,
+    )
+else:
+    from typing_extensions import (
+        LiteralString as _LiteralString,
+        Self,
+    )
 
 from ._frame_task import FrameTaskManager as _FrameTaskManager
 
@@ -35,7 +42,7 @@ GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
 
 
 class Engine(_Protocol):
-    frame_tasks: _FrameTaskManager[_Self]  # Global across instances
+    frame_tasks: _FrameTaskManager[Self]  # Global across instances
     _is_running: bool
 
     @property
@@ -53,7 +60,7 @@ class Node(_Protocol):
     parent: Node | None
 
     def __init__(self) -> None: ...
-    def with_parent(self, parent: Node | None, /) -> _Self: ...
+    def with_parent(self, parent: Node | None, /) -> Self: ...
     def update(self) -> None: ...
     def queue_free(self) -> None: ...
 
@@ -68,30 +75,30 @@ class TransformComponent(_Protocol):
         self,
         position: _Vec2,
         /,
-    ) -> _Self: ...
+    ) -> Self: ...
     @_overload
     def with_position(
         self,
         *,
         x: float,
         y: float,
-    ) -> _Self: ...
+    ) -> Self: ...
     @_overload
     def with_global_position(
         self,
         global_position: _Vec2,
         /,
-    ) -> _Self: ...
+    ) -> Self: ...
     @_overload
     def with_global_position(
         self,
         *,
         x: float,
         y: float,
-    ) -> _Self: ...
-    def with_rotation(self, rotation: float, /) -> _Self: ...
-    def with_global_rotation(self, global_rotation: float, /) -> _Self: ...
-    def with_top_level(self, state: bool = True, /) -> _Self: ...
+    ) -> Self: ...
+    def with_rotation(self, rotation: float, /) -> Self: ...
+    def with_global_rotation(self, global_rotation: float, /) -> Self: ...
+    def with_top_level(self, state: bool = True, /) -> Self: ...
     @property
     def global_position(self) -> _Vec2: ...
     @global_position.setter

@@ -7,7 +7,7 @@ authors = [
 ]
 dependencies = [
     "linflex~=0.3.0",
-    "typing-extensions>=4.4.0",
+    "typing-extensions>=4.4.0; python_version<3.11",
 ]
 readme = "README.md"
 license = { file = "LICENSE" }
