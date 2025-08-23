@@ -39,7 +39,7 @@ class Engine(metaclass=EngineMixinSorter):
     class MyGame(Engine):
         def __init__(self) -> None:
             ... # Initialize your nodes, preload scenes, etc.
-        
+
         def update(self) -> None:
             ... # Your game logic here
     ```

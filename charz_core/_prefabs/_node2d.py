@@ -12,7 +12,7 @@ class Node2D(TransformComponent, Node):
     Has a transform (position, rotation).
     All 2D nodes, including sprites, inherit from Node2D.
     Use Node2D as a parent node to move, hide and rotate children in a 2D project.
-    
+
     Example:
 
     Extending `Node2D` with components:
@@ -25,7 +25,7 @@ class Node2D(TransformComponent, Node):
 
     class GreenPoint(Node2D, ColorComponent):
         ...
-    
+
     assert ColoredPoint().color == "green"
     ```
     """

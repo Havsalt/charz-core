@@ -14,7 +14,7 @@ class TransformComponent:  # Component (mixin class)
     Examples:
 
     Composing a 2D node with custom physics component:
-    
+
     ```python
     from charz_core import Node, TransformComponent
     from .my_files.physics_component import PhysicsComponent
