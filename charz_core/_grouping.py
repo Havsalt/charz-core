@@ -36,6 +36,7 @@ def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
 
     This works by wrapping `__new__` and `_free`.
     Recommended types for parameter `group_id`: `LiteralString`, `StrEnum` or `int`.
+
     `NOTE`: Each node is added to the current scene's group when `__new__` is called.
 
     Args:
