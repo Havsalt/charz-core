@@ -108,7 +108,7 @@ Includes
 # Module `charz_core._annotations`
 
 Custom Annotations for `charz-core`
-============================
+===================================
 
 This file contains private annotations used across this package.
 
@@ -682,13 +682,11 @@ def group(group_id: GroupID) -> Callable[[type[T]], type[T]]
 
 Decorator that adds `node`/`component` to the given `group`.
 
-This works by wrapping `__new__` and `_free`.
-Recommended types for parameter `group_id`: `LiteralString`, `StrEnum` or `int`.
-
-`NOTE` Each node is added to the current scene's group when `__new__` is called.
-
 **Example**:
 
+  
+  Adding instances of a custom node class to a new group `"tile"`,
+  and `iterating over members` in the current scene:
   
 ```python
 from charz_core import Node2D, Scene, group
@@ -703,7 +701,16 @@ stone = WorldTile("Stone")
 
 for tile in Scene.current.get_group_members("tile", type_hint=WorldTile):
     print(tile.material_name)
+
+# Prints out
+>>> 'Dirt'
+>>> 'Stone'
 ```
+  
+  This works by wrapping `__new__` and `_free`.
+  Recommended types for parameter `group_id`: `LiteralString`, `StrEnum` or `int`.
+  
+  `NOTE` Each node is added to the current scene's group when `__new__` is called.
   
 
 **Arguments**:
