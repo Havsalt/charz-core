@@ -67,16 +67,33 @@ def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
     # as there won't be a lot of scene creation
     from ._scene import Scene
 
-    def wrapper(kind: type[T]) -> type[T]:
-        original_new = kind.__new__
+    def wrapper(node_type_or_component: type[T]) -> type[T]:
+        original_new = node_type_or_component.__new__
 
+        # This will not always be correct, but I will leave it for now...
         @wraps(original_new)
         def new_wrapper(cls: type[T], *args: Any, **kwargs: Any) -> T:
-            instance = original_new(cls, *args, **kwargs)
+            # This conditional fixes (hopefully) the MRO chain problem I had for a long time...
+            if original_new is object.__new__:
+                # Perform `super()` call to the next object's `__new__` in the MRO chain
+                # without the help of compiler magic.
+                # This path (in the if-statement) is likely triggered by
+                # the component/node class (that is decorated with this decorator)
+                # not implementing its own `__new__` method.
+                # NOTE: This path fixes components' `__new__` so it will call
+                # the right `__new__` associated with the next object in the MRO chain,
+                # and don't just end with `object.__new__`
+                # - that previously resulted in "lost logic".
+                mro_next_index = cls.__mro__.index(node_type_or_component) + 1
+                mro_next = cls.__mro__[mro_next_index]
+                instance = mro_next.__new__(cls, *args, **kwargs)
+            else:
+                # Wrap the original `__new__` method
+                instance = original_new(cls, *args, **kwargs)
             Scene.current.groups[group_id][instance.uid] = instance  # type: ignore
             return instance
 
-        kind.__new__ = new_wrapper
-        return kind
+        node_type_or_component.__new__ = new_wrapper
+        return node_type_or_component
 
     return wrapper
