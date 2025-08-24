@@ -61,5 +61,5 @@ from ._camera import Camera
 from ._scene import Scene
 from ._grouping import Group, group
 from ._node import Node
-from ._components._transform import TransformComponent
-from ._prefabs._node2d import Node2D
+from ._components.transform import TransformComponent
+from ._prefabs.node2d import Node2D

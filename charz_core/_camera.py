@@ -7,7 +7,7 @@ from linflex import Vec2
 from typing_extensions import Self
 
 from ._node import Node, NodeMixinSorter
-from ._prefabs._node2d import Node2D
+from ._prefabs.node2d import Node2D
 
 
 @unique
