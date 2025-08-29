@@ -13,19 +13,19 @@
     * [as\_current](#charz_core._camera.Camera.as_current)
     * [is\_current](#charz_core._camera.Camera.is_current)
     * [with\_mode](#charz_core._camera.Camera.with_mode)
-* [charz\_core.\_components.\_transform](#charz_core._components._transform)
-  * [TransformComponent](#charz_core._components._transform.TransformComponent)
-    * [with\_position](#charz_core._components._transform.TransformComponent.with_position)
-    * [with\_global\_position](#charz_core._components._transform.TransformComponent.with_global_position)
-    * [with\_rotation](#charz_core._components._transform.TransformComponent.with_rotation)
-    * [with\_global\_rotation](#charz_core._components._transform.TransformComponent.with_global_rotation)
-    * [with\_top\_level](#charz_core._components._transform.TransformComponent.with_top_level)
-    * [set\_global\_x](#charz_core._components._transform.TransformComponent.set_global_x)
-    * [set\_global\_y](#charz_core._components._transform.TransformComponent.set_global_y)
-    * [global\_position](#charz_core._components._transform.TransformComponent.global_position)
-    * [global\_position](#charz_core._components._transform.TransformComponent.global_position)
-    * [global\_rotation](#charz_core._components._transform.TransformComponent.global_rotation)
-    * [global\_rotation](#charz_core._components._transform.TransformComponent.global_rotation)
+* [charz\_core.\_components.transform](#charz_core._components.transform)
+  * [TransformComponent](#charz_core._components.transform.TransformComponent)
+    * [with\_position](#charz_core._components.transform.TransformComponent.with_position)
+    * [with\_global\_position](#charz_core._components.transform.TransformComponent.with_global_position)
+    * [with\_rotation](#charz_core._components.transform.TransformComponent.with_rotation)
+    * [with\_global\_rotation](#charz_core._components.transform.TransformComponent.with_global_rotation)
+    * [with\_top\_level](#charz_core._components.transform.TransformComponent.with_top_level)
+    * [set\_global\_x](#charz_core._components.transform.TransformComponent.set_global_x)
+    * [set\_global\_y](#charz_core._components.transform.TransformComponent.set_global_y)
+    * [global\_position](#charz_core._components.transform.TransformComponent.global_position)
+    * [global\_position](#charz_core._components.transform.TransformComponent.global_position)
+    * [global\_rotation](#charz_core._components.transform.TransformComponent.global_rotation)
+    * [global\_rotation](#charz_core._components.transform.TransformComponent.global_rotation)
 * [charz\_core.\_engine](#charz_core._engine)
   * [EngineMixinSorter](#charz_core._engine.EngineMixinSorter)
   * [Engine](#charz_core._engine.Engine)
@@ -48,8 +48,8 @@
     * [with\_parent](#charz_core._node.Node.with_parent)
     * [update](#charz_core._node.Node.update)
     * [queue\_free](#charz_core._node.Node.queue_free)
-* [charz\_core.\_prefabs.\_node2d](#charz_core._prefabs._node2d)
-  * [Node2D](#charz_core._prefabs._node2d.Node2D)
+* [charz\_core.\_prefabs.node2d](#charz_core._prefabs.node2d)
+  * [Node2D](#charz_core._prefabs.node2d.Node2D)
 * [charz\_core.\_scene](#charz_core._scene)
   * [static\_load\_node\_type](#charz_core._scene.static_load_node_type)
   * [Scene](#charz_core._scene.Scene)
@@ -243,11 +243,11 @@ Chained method to set the camera's mode.
 
 - `mode` _CameraMode_ - Enum variant to set the camera's mode.
 
-<a id="charz_core._components._transform"></a>
+<a id="charz_core._components.transform"></a>
 
-# Module `charz_core._components._transform`
+# Module `charz_core._components.transform`
 
-<a id="charz_core._components._transform.TransformComponent"></a>
+<a id="charz_core._components.transform.TransformComponent"></a>
 
 ## Class `TransformComponent`
 
@@ -294,7 +294,7 @@ class Node2D(TransformComponent, Node):
   `set_global_x`
   `set_global_y`
 
-<a id="charz_core._components._transform.TransformComponent.with_position"></a>
+<a id="charz_core._components.transform.TransformComponent.with_position"></a>
 
 ### `TransformComponent.with_position`
 
@@ -329,7 +329,7 @@ using either a `Vec2` instance or individual `x` and `y` coordinates.
 
 - `Self` - Same node instance.
 
-<a id="charz_core._components._transform.TransformComponent.with_global_position"></a>
+<a id="charz_core._components.transform.TransformComponent.with_global_position"></a>
 
 ### `TransformComponent.with_global_position`
 
@@ -364,7 +364,7 @@ using either a `Vec2` instance or individual `x` and `y` coordinates.
 
 - `Self` - Same node instance.
 
-<a id="charz_core._components._transform.TransformComponent.with_rotation"></a>
+<a id="charz_core._components.transform.TransformComponent.with_rotation"></a>
 
 ### `TransformComponent.with_rotation`
 
@@ -383,7 +383,7 @@ Chained method to set the node's `rotation`.
 
 - `Self` - Same node instance.
 
-<a id="charz_core._components._transform.TransformComponent.with_global_rotation"></a>
+<a id="charz_core._components.transform.TransformComponent.with_global_rotation"></a>
 
 ### `TransformComponent.with_global_rotation`
 
@@ -402,7 +402,7 @@ Chained method to set the node's `global_rotation`.
 
 - `Self` - Same node instance.
 
-<a id="charz_core._components._transform.TransformComponent.with_top_level"></a>
+<a id="charz_core._components.transform.TransformComponent.with_top_level"></a>
 
 ### `TransformComponent.with_top_level`
 
@@ -421,7 +421,7 @@ Chained method to set the node's `top_level` state.
 
 - `Self` - Same node instance.
 
-<a id="charz_core._components._transform.TransformComponent.set_global_x"></a>
+<a id="charz_core._components.transform.TransformComponent.set_global_x"></a>
 
 ### `TransformComponent.set_global_x`
 
@@ -435,7 +435,7 @@ Set node's global x-coordinate.
 
 - `x` _float_ - Global x-coordinate.
 
-<a id="charz_core._components._transform.TransformComponent.set_global_y"></a>
+<a id="charz_core._components.transform.TransformComponent.set_global_y"></a>
 
 ### `TransformComponent.set_global_y`
 
@@ -449,7 +449,7 @@ Set node's global y-coordinate.
 
 - `y` _float_ - Global y-coordinate.
 
-<a id="charz_core._components._transform.TransformComponent.global_position"></a>
+<a id="charz_core._components.transform.TransformComponent.global_position"></a>
 
 ### `TransformComponent.global_position`
 
@@ -479,7 +479,7 @@ self.set_global_x(42)
 
 - `Vec2` - Copy of global position.
 
-<a id="charz_core._components._transform.TransformComponent.global_position"></a>
+<a id="charz_core._components.transform.TransformComponent.global_position"></a>
 
 ### `TransformComponent.global_position`
 
@@ -494,7 +494,7 @@ Set node's global position (world space).
 
 - `position` _Vec2_ - Global position.
 
-<a id="charz_core._components._transform.TransformComponent.global_rotation"></a>
+<a id="charz_core._components.transform.TransformComponent.global_rotation"></a>
 
 ### `TransformComponent.global_rotation`
 
@@ -509,7 +509,7 @@ Computes node's global rotation (world space).
 
 - `float` - Global rotation in radians.
 
-<a id="charz_core._components._transform.TransformComponent.global_rotation"></a>
+<a id="charz_core._components.transform.TransformComponent.global_rotation"></a>
 
 ### `TransformComponent.global_rotation`
 
@@ -842,11 +842,11 @@ Queues this node for freeing.
 This method should be called when you want to remove the node from the scene.
 It will be freed at the end of the current frame, handled by `Engine.frame_tasks`.
 
-<a id="charz_core._prefabs._node2d"></a>
+<a id="charz_core._prefabs.node2d"></a>
 
-# Module `charz_core._prefabs._node2d`
+# Module `charz_core._prefabs.node2d`
 
-<a id="charz_core._prefabs._node2d.Node2D"></a>
+<a id="charz_core._prefabs.node2d.Node2D"></a>
 
 ## Class `Node2D`
 
