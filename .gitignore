@@ -1,6 +1,7 @@
 .vscode/
 dev.py
 dev[0-9].py
+Todo.md
 
 # python generated files
 __pycache__/
