@@ -1,3 +1,7 @@
+[build-system]
+requires = ["uv_build~=0.8.15"]
+build-backend = "uv_build"
+
 [project]
 name = "charz-core"
 version = "0.1.2"
@@ -7,7 +11,7 @@ authors = [
 ]
 dependencies = [
     "linflex~=0.3.0",
-    "typing-extensions>=4.4.0; python_version < '3.11'",
+    "typing-extensions>=4.4.0 ; python_version < '3.11'",
 ]
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -31,24 +35,13 @@ classifiers = [
     "Typing :: Typed",
 ]
 
-[build-system]
-requires = ["hatchling~=1.26.0"]
-build-backend = "hatchling.build"
-
-[tool.rye]
-managed = true
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "pytest>=8.3.4",
     "keyboard>=0.13.5",
     "pydoc-markdown~=4.8",
     "pydoc-markdown-havsalt~=0.1.0",
 ]
-
-[tool.hatch.metadata]
-allow-direct-references = true
-
-[tool.hatch.build.targets.wheel]
-packages = ["charz_core"]
 
 [[tool.pydoc-markdown.loaders]]
 type = "python"
