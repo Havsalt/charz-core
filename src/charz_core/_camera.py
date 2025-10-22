@@ -20,6 +20,9 @@ class CameraMode(Flag):
 class CameraClassAttributes(NodeMixinSorter):
     """Workaround to add class attributes to `Camera`."""
 
+    # Re-export for public use
+    Mode = CameraMode
+    # Export each variant as a `Godot` style enum
     MODE_FIXED: CameraMode = CameraMode.FIXED
     MODE_CENTERED: CameraMode = CameraMode.CENTERED
     MODE_INCLUDE_SIZE: CameraMode = CameraMode.INCLUDE_SIZE
