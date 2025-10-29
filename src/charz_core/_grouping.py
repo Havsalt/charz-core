@@ -5,7 +5,7 @@ from enum import unique
 from functools import wraps
 from typing import TYPE_CHECKING, Callable, Any
 
-from ._annotations import T, GroupID
+from .typing import T, GroupID
 
 if TYPE_CHECKING:
     from ._node import Node

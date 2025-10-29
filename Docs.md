@@ -3,9 +3,9 @@
 ## Table of Contents
 
 * [charz\_core](#charz_core)
-* [charz\_core.\_annotations](#charz_core._annotations)
-  * [Engine](#charz_core._annotations.Engine)
-    * [frame\_tasks](#charz_core._annotations.Engine.frame_tasks)
+* [charz\_core.typing](#charz_core.typing)
+  * [Engine](#charz_core.typing.Engine)
+    * [frame\_tasks](#charz_core.typing.Engine.frame_tasks)
 * [charz\_core.\_camera](#charz_core._camera)
   * [CameraClassAttributes](#charz_core._camera.CameraClassAttributes)
   * [Camera](#charz_core._camera.Camera)
@@ -89,6 +89,8 @@ Includes
 - `Vec2`
 - `Vec2i`
 - `Vec3`
+- Submodules
+- `typing`
 - Framework
 - `Engine`
 - `Scene`
@@ -103,19 +105,21 @@ Includes
 - `Node`
 - `Node2D`
 
-<a id="charz_core._annotations"></a>
+<a id="charz_core.typing"></a>
 
-# Module `charz_core._annotations`
+# Module `charz_core.typing`
 
-Custom Annotations for `charz-core`
-===================================
+Custom Typing Utility for `charz-core`
+======================================
 
 This file contains private annotations used across this package.
+Made public since there are sometimes reasons to re-use internal
+type aliases and protocols, for example in extension modules.
 
 Whenever there is a "?" comment,
 it means a type may or may not implement that field or mixin class.
 
-<a id="charz_core._annotations.Engine"></a>
+<a id="charz_core.typing.Engine"></a>
 
 ## Class `Engine`
 
@@ -123,7 +127,7 @@ it means a type may or may not implement that field or mixin class.
 class Engine(_Protocol)
 ```
 
-<a id="charz_core._annotations.Engine.frame_tasks"></a>
+<a id="charz_core.typing.Engine.frame_tasks"></a>
 
 ### `frame_tasks`
 

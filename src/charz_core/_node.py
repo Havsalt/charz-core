@@ -7,7 +7,7 @@ from typing_extensions import Self
 
 from ._grouping import Group, group
 from ._scene import Scene
-from ._annotations import NodeID
+from .typing import NodeID
 
 
 class NodeMixinSorter(type):

@@ -7,7 +7,7 @@ from typing_extensions import Self
 
 from ._frame_task import FrameTaskManager
 from ._grouping import Group
-from ._annotations import T, GroupID, NodeID
+from .typing import T, GroupID, NodeID
 
 if TYPE_CHECKING:
     from ._node import Node

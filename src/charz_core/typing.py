@@ -1,8 +1,10 @@
 """
-Custom Annotations for `charz-core`
-===================================
+Custom Typing Utility for `charz-core`
+======================================
 
 This file contains private annotations used across this package.
+Made public since there are sometimes reasons to re-use internal
+type aliases and protocols, for example in extension modules.
 
 Whenever there is a "?" comment,
 it means a type may or may not implement that field or mixin class.

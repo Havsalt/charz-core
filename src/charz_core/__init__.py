@@ -17,6 +17,8 @@ Includes
   - `Vec2`
   - `Vec2i`
   - `Vec3`
+- Submodules
+  - `typing`
 - Framework
   - `Engine`
   - `Scene`
@@ -33,6 +35,7 @@ Includes
 """
 
 __all__ = [
+    "typing",
     "Engine",
     "Camera",
     "Scene",
@@ -55,7 +58,8 @@ __all__ = [
 from linflex import lerp, sign, clamp, move_toward, Vec2, Vec2i, Vec3
 
 # Exports
-from ._annotations import Self  # Version proof
+from . import typing
+from .typing import Self  # Version proof `Self`
 from ._engine import Engine
 from ._camera import Camera
 from ._scene import Scene
