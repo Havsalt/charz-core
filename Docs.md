@@ -681,7 +681,7 @@ A dict-like manager that auto-sorts tasks by priority.
 ## `group`
 
 ```python
-def group(group_id: GroupID) -> Callable[[type[T]], type[T]]
+def group(group_id: GroupID) -> Callable[[type[_T]], type[_T]]
 ```
 
 Decorator that adds `node`/`component` to the given `group`.
@@ -990,8 +990,8 @@ Chained method to set this scene as the current one.
 ```python
 def get_group_members(
     group_id: GroupID,
-    type_hint: type[T] = NodeType,
-) -> list[T]
+    type_hint: type[_T] = NodeType,
+) -> list[_T]
 ```
 
 Get all members of a specific group.
@@ -1014,8 +1014,8 @@ Get all members of a specific group.
 ```python
 def get_first_group_member(
     group_id: GroupID,
-    type_hint: type[T] = NodeType,
-) -> T
+    type_hint: type[_T] = NodeType,
+) -> _T
 ```
 
 Get the first member of a specific group.

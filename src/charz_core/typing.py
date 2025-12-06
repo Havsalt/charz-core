@@ -44,7 +44,8 @@ GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
 
 
 class Engine(_Protocol):
-    frame_tasks: _FrameTaskManager[Self]  # Global across instances
+    #: Global across instances
+    frame_tasks: _FrameTaskManager[Self]
     _is_running: bool
 
     @property
