@@ -5,7 +5,7 @@ from enum import unique
 from functools import wraps
 from typing import TYPE_CHECKING, Callable, Any
 
-from .typing import T, GroupID
+from .typing import _T, GroupID
 
 if TYPE_CHECKING:
     from ._node import Node
@@ -31,7 +31,7 @@ else:
         NODE = "node"
 
 
-def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
+def group(group_id: GroupID, /) -> Callable[[type[_T]], type[_T]]:
     """Decorator that adds `node`/`component` to the given `group`.
 
     Example:
@@ -74,12 +74,12 @@ def group(group_id: GroupID, /) -> Callable[[type[T]], type[T]]:
     # as there won't be a lot of scene creation
     from ._scene import Scene
 
-    def wrapper(node_type_or_component: type[T]) -> type[T]:
+    def wrapper(node_type_or_component: type[_T]) -> type[_T]:
         original_new = node_type_or_component.__new__
 
         # This will not always be correct, but I will leave it for now...
         @wraps(original_new)
-        def new_wrapper(cls: type[T], *args: Any, **kwargs: Any) -> T:
+        def new_wrapper(cls: type[_T], *args: Any, **kwargs: Any) -> _T:
             # This conditional fixes (hopefully) the MRO chain problem I had for a long time...
             if original_new is object.__new__:
                 # Perform `super()` call to the next object's `__new__` in the MRO chain

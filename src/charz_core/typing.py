@@ -38,7 +38,7 @@ else:
 
 from ._frame_task import FrameTaskManager as _FrameTaskManager
 
-T = _TypeVar("T")
+_T = _TypeVar("_T")
 NodeID: _TypeAlias = int
 GroupID: _TypeAlias = _LiteralString | NodeID | _Hashable
 

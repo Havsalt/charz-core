@@ -3,11 +3,9 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import TYPE_CHECKING, ClassVar, Any
 
-from typing_extensions import Self
-
 from ._frame_task import FrameTaskManager
 from ._grouping import Group
-from .typing import T, GroupID, NodeID
+from .typing import _T, GroupID, NodeID, Self
 
 if TYPE_CHECKING:
     from ._node import Node
@@ -128,8 +126,8 @@ class Scene(metaclass=SceneClassProperties):
         group_id: GroupID,
         /,
         # Used to hint type checkers of dynamic return type
-        type_hint: type[T] = NodeType,
-    ) -> list[T]:
+        type_hint: type[_T] = NodeType,
+    ) -> list[_T]:
         """Get all members of a specific group.
 
         Args:
@@ -150,8 +148,8 @@ class Scene(metaclass=SceneClassProperties):
         group_id: GroupID,
         /,
         # Used to hint type checkers of dynamic return type
-        type_hint: type[T] = NodeType,
-    ) -> T:
+        type_hint: type[_T] = NodeType,
+    ) -> _T:
         """Get the first member of a specific group.
 
         Args:

@@ -3,8 +3,9 @@ from __future__ import annotations
 from typing import Any
 
 from linflex import Vec2
-from typing_extensions import Self
 from typing import overload
+
+from ..typing import Self
 
 
 class TransformComponent:  # Component (mixin class)

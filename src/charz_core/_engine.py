@@ -2,10 +2,9 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from typing_extensions import Self
-
 from ._frame_task import FrameTaskManager
 from ._scene import Scene
+from .typing import Self
 
 
 class EngineMixinSorter(type):

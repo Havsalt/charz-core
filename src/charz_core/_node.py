@@ -3,11 +3,9 @@ from __future__ import annotations
 from itertools import count
 from typing import Any, ClassVar
 
-from typing_extensions import Self
-
 from ._grouping import Group, group
 from ._scene import Scene
-from .typing import NodeID
+from .typing import NodeID, Self
 
 
 class NodeMixinSorter(type):

@@ -4,10 +4,10 @@ from enum import Flag, unique, auto
 from typing import Literal
 
 from linflex import Vec2
-from typing_extensions import Self
 
 from ._node import Node, NodeMixinSorter
 from ._prefabs.node2d import Node2D
+from .typing import Self
 
 
 @unique
