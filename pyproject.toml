@@ -114,6 +114,6 @@ ignore = [
     "UP035",   # pyupgrade :: depricated-import :!: Using typing.Generator instead of collections.abc.Generator
     "N812"     # pep8-naming :: lowercase-imported-as-non-lowercase
 ]
-extend-per-file-ignores = { "__init__.py" = ["D205", "D212"], "_annotations.py" = ["D205", "D212"], "text.py" = ["D205", "D212"], "tests/**" = ["D"] }
+extend-per-file-ignores = { "__init__.py" = ["D205", "D212"], "typing.py" = ["D205", "D212"], "text.py" = ["D205", "D212"], "tests/**" = ["D"] }
 isort = { split-on-trailing-comma = false }
 flake8-annotations = { allow-star-arg-any = true }
