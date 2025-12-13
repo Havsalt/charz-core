@@ -61,7 +61,19 @@ class TransformComponent:  # Component (mixin class)
         self,
         position: Vec2,
         /,
-    ) -> Self: ...
+    ) -> Self:
+        """Chained method to set the node's position.
+
+        Args:
+            position (Vec2): Position of the node. Defaults to None.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
 
     @overload
     def with_position(
@@ -69,7 +81,58 @@ class TransformComponent:  # Component (mixin class)
         *,
         x: float,
         y: float,
-    ) -> Self: ...
+    ) -> Self:
+        """Chained method to set the node's position.
+
+        Args:
+            x (float): X-coordinate of the node. Defaults to None.
+            y (float): Y-coordinate of the node. Defaults to None.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
+
+    @overload
+    def with_position(
+        self,
+        *,
+        x: float,
+    ) -> Self:
+        """Chained method to set the node's position.
+
+        Args:
+            x (float): X-coordinate of the node. Defaults to None.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
+
+    @overload
+    def with_position(
+        self,
+        *,
+        y: float,
+    ) -> Self:
+        """Chained method to set the node's position.
+
+        Args:
+            y (float): Y-coordinate of the node. Defaults to None.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
 
     def with_position(  # type: ignore[override]
         self,
@@ -79,23 +142,6 @@ class TransformComponent:  # Component (mixin class)
         x: float | None = None,
         y: float | None = None,
     ) -> Self:
-        """Chained method to set the node's position.
-
-        This method allows you to set the position of the node,
-        using either a `Vec2` instance or individual `x` and `y` coordinates.
-
-        Args:
-            position (Vec2 | None, optional): Position of the node. Defaults to None.
-            x (float | None, optional): X-coordinate of the node. Defaults to None.
-            y (float | None, optional): Y-coordinate of the node. Defaults to None.
-
-        Raises:
-            TypeError: If all arguments are `None` at the same time.
-            TypeError: If both `position` and any of `x`/`y` are provided.
-
-        Returns:
-            Self: Same node instance.
-        """
         if position is None and x is None and y is None:
             raise TypeError(f"Not all arguments can be {None} at the same time")
         if position is not None and (x is not None or y is not None):

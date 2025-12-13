@@ -16,6 +16,9 @@
 * [charz\_core.\_components.transform](#charz_core._components.transform)
   * [TransformComponent](#charz_core._components.transform.TransformComponent)
     * [with\_position](#charz_core._components.transform.TransformComponent.with_position)
+    * [with\_position](#charz_core._components.transform.TransformComponent.with_position)
+    * [with\_position](#charz_core._components.transform.TransformComponent.with_position)
+    * [with\_position](#charz_core._components.transform.TransformComponent.with_position)
     * [with\_global\_position](#charz_core._components.transform.TransformComponent.with_global_position)
     * [with\_rotation](#charz_core._components.transform.TransformComponent.with_rotation)
     * [with\_global\_rotation](#charz_core._components.transform.TransformComponent.with_global_rotation)
@@ -303,24 +306,104 @@ class Node2D(TransformComponent, Node):
 ### `TransformComponent.with_position`
 
 ```python
+@overload
+def with_position(position: Vec2) -> Self
+```
+
+Chained method to set the node's position.
+
+**Arguments**:
+
+- `position` _Vec2_ - Position of the node. Defaults to None.
+  
+
+**Raises**:
+
+- `TypeError` - If all arguments are `None` at the same time.
+- `TypeError` - If both `position` and any of `x`/`y` are provided.
+  
+
+**Returns**:
+
+- `Self` - Same node instance.
+
+<a id="charz_core._components.transform.TransformComponent.with_position"></a>
+
+### `TransformComponent.with_position`
+
+```python
+@overload
 def with_position(
-    position: Vec2 | None = None,
     *,
-    x: float | None = None,
-    y: float | None = None,
+    x: float,
+    y: float,
 ) -> Self
 ```
 
 Chained method to set the node's position.
 
-This method allows you to set the position of the node,
-using either a `Vec2` instance or individual `x` and `y` coordinates.
+**Arguments**:
+
+- `x` _float_ - X-coordinate of the node. Defaults to None.
+- `y` _float_ - Y-coordinate of the node. Defaults to None.
+  
+
+**Raises**:
+
+- `TypeError` - If all arguments are `None` at the same time.
+- `TypeError` - If both `position` and any of `x`/`y` are provided.
+  
+
+**Returns**:
+
+- `Self` - Same node instance.
+
+<a id="charz_core._components.transform.TransformComponent.with_position"></a>
+
+### `TransformComponent.with_position`
+
+```python
+@overload
+def with_position(
+    *,
+    x: float,
+) -> Self
+```
+
+Chained method to set the node's position.
 
 **Arguments**:
 
-- `position` _Vec2 | None, optional_ - Position of the node. Defaults to None.
-- `x` _float | None, optional_ - X-coordinate of the node. Defaults to None.
-- `y` _float | None, optional_ - Y-coordinate of the node. Defaults to None.
+- `x` _float_ - X-coordinate of the node. Defaults to None.
+  
+
+**Raises**:
+
+- `TypeError` - If all arguments are `None` at the same time.
+- `TypeError` - If both `position` and any of `x`/`y` are provided.
+  
+
+**Returns**:
+
+- `Self` - Same node instance.
+
+<a id="charz_core._components.transform.TransformComponent.with_position"></a>
+
+### `TransformComponent.with_position`
+
+```python
+@overload
+def with_position(
+    *,
+    y: float,
+) -> Self
+```
+
+Chained method to set the node's position.
+
+**Arguments**:
+
+- `y` _float_ - Y-coordinate of the node. Defaults to None.
   
 
 **Raises**:
