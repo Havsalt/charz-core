@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "charz-core"
-version = "0.1.4"
+version = "0.1.5"
 description = "Core logic for charz"
 authors = [
     { name = "Havsalt", email = "77575424+Havsalt@users.noreply.github.com" }
