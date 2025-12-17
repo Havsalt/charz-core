@@ -20,6 +20,9 @@
     * [with\_position](#charz_core._components.transform.TransformComponent.with_position)
     * [with\_position](#charz_core._components.transform.TransformComponent.with_position)
     * [with\_global\_position](#charz_core._components.transform.TransformComponent.with_global_position)
+    * [with\_global\_position](#charz_core._components.transform.TransformComponent.with_global_position)
+    * [with\_global\_position](#charz_core._components.transform.TransformComponent.with_global_position)
+    * [with\_global\_position](#charz_core._components.transform.TransformComponent.with_global_position)
     * [with\_rotation](#charz_core._components.transform.TransformComponent.with_rotation)
     * [with\_global\_rotation](#charz_core._components.transform.TransformComponent.with_global_rotation)
     * [with\_top\_level](#charz_core._components.transform.TransformComponent.with_top_level)
@@ -314,7 +317,7 @@ Chained method to set the node's position.
 
 **Arguments**:
 
-- `position` _Vec2_ - Position of the node. Defaults to None.
+- `position` _Vec2_ - Position of the node.
   
 
 **Raises**:
@@ -344,8 +347,8 @@ Chained method to set the node's position.
 
 **Arguments**:
 
-- `x` _float_ - X-coordinate of the node. Defaults to None.
-- `y` _float_ - Y-coordinate of the node. Defaults to None.
+- `x` _float_ - X-coordinate of the node.
+- `y` _float_ - Y-coordinate of the node.
   
 
 **Raises**:
@@ -374,7 +377,7 @@ Chained method to set the node's position.
 
 **Arguments**:
 
-- `x` _float_ - X-coordinate of the node. Defaults to None.
+- `x` _float_ - X-coordinate of the node.
   
 
 **Raises**:
@@ -403,7 +406,7 @@ Chained method to set the node's position.
 
 **Arguments**:
 
-- `y` _float_ - Y-coordinate of the node. Defaults to None.
+- `y` _float_ - Y-coordinate of the node.
   
 
 **Raises**:
@@ -421,24 +424,104 @@ Chained method to set the node's position.
 ### `TransformComponent.with_global_position`
 
 ```python
+@overload
+def with_global_position(global_position: Vec2) -> Self
+```
+
+Chained method to set the node's global position.
+
+**Arguments**:
+
+- `global_position` _Vec2_ - Global position.
+  
+
+**Raises**:
+
+- `TypeError` - If all arguments are `None` at the same time.
+- `TypeError` - If both `global_position` and any of `x`/`y` are provided.
+  
+
+**Returns**:
+
+- `Self` - Same node instance.
+
+<a id="charz_core._components.transform.TransformComponent.with_global_position"></a>
+
+### `TransformComponent.with_global_position`
+
+```python
+@overload
 def with_global_position(
-    global_position: Vec2 | None = None,
     *,
-    x: float | None = None,
-    y: float | None = None,
+    x: float,
+    y: float,
 ) -> Self
 ```
 
 Chained method to set the node's global position.
 
-This method allows you to set the global position of the node,
-using either a `Vec2` instance or individual `x` and `y` coordinates.
+**Arguments**:
+
+- `x` _float_ - Global x-coordinate of node.
+- `y` _float_ - Global y-coordinate of node.
+  
+
+**Raises**:
+
+- `TypeError` - If all arguments are `None` at the same time.
+- `TypeError` - If both `global_position` and any of `x`/`y` are provided.
+  
+
+**Returns**:
+
+- `Self` - Same node instance.
+
+<a id="charz_core._components.transform.TransformComponent.with_global_position"></a>
+
+### `TransformComponent.with_global_position`
+
+```python
+@overload
+def with_global_position(
+    *,
+    x: float,
+) -> Self
+```
+
+Chained method to set the node's global position.
 
 **Arguments**:
 
-- `global_position` _Vec2 | None, optional_ - Global position. Defaults to None.
-- `x` _float | None, optional_ - Global x-coordinate of node. Defaults to None.
-- `y` _float | None, optional_ - Global y-coordinate of node. Defaults to None.
+- `x` _float_ - Global x-coordinate of node.
+  
+
+**Raises**:
+
+- `TypeError` - If all arguments are `None` at the same time.
+- `TypeError` - If both `global_position` and any of `x`/`y` are provided.
+  
+
+**Returns**:
+
+- `Self` - Same node instance.
+
+<a id="charz_core._components.transform.TransformComponent.with_global_position"></a>
+
+### `TransformComponent.with_global_position`
+
+```python
+@overload
+def with_global_position(
+    *,
+    y: float,
+) -> Self
+```
+
+Chained method to set the node's global position.
+
+**Arguments**:
+
+- `y` _float_ - Global y-coordinate of node.
   
 
 **Raises**:

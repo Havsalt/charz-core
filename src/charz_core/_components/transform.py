@@ -65,7 +65,7 @@ class TransformComponent:  # Component (mixin class)
         """Chained method to set the node's position.
 
         Args:
-            position (Vec2): Position of the node. Defaults to None.
+            position (Vec2): Position of the node.
 
         Raises:
             TypeError: If all arguments are `None` at the same time.
@@ -85,8 +85,8 @@ class TransformComponent:  # Component (mixin class)
         """Chained method to set the node's position.
 
         Args:
-            x (float): X-coordinate of the node. Defaults to None.
-            y (float): Y-coordinate of the node. Defaults to None.
+            x (float): X-coordinate of the node.
+            y (float): Y-coordinate of the node.
 
         Raises:
             TypeError: If all arguments are `None` at the same time.
@@ -105,7 +105,7 @@ class TransformComponent:  # Component (mixin class)
         """Chained method to set the node's position.
 
         Args:
-            x (float): X-coordinate of the node. Defaults to None.
+            x (float): X-coordinate of the node.
 
         Raises:
             TypeError: If all arguments are `None` at the same time.
@@ -124,7 +124,7 @@ class TransformComponent:  # Component (mixin class)
         """Chained method to set the node's position.
 
         Args:
-            y (float): Y-coordinate of the node. Defaults to None.
+            y (float): Y-coordinate of the node.
 
         Raises:
             TypeError: If all arguments are `None` at the same time.
@@ -143,11 +143,11 @@ class TransformComponent:  # Component (mixin class)
         y: float | None = None,
     ) -> Self:
         if position is None and x is None and y is None:
-            raise TypeError(f"Not all arguments can be {None} at the same time")
+            raise TypeError(f"Not all arguments can be `{None}` at the same time")
         if position is not None and (x is not None or y is not None):
             raise TypeError(
-                "Chose either positional argument 'position' "
-                "or keyword arguments 'x' and/or 'y', not all three"
+                "Chose either positional argument `position` "
+                "or keyword arguments `x` and/or `y`, not all three"
             )
         if position is not None:
             self.position = position
@@ -162,7 +162,19 @@ class TransformComponent:  # Component (mixin class)
         self,
         global_position: Vec2,
         /,
-    ) -> Self: ...
+    ) -> Self:
+        """Chained method to set the node's global position.
+
+        Args:
+            global_position (Vec2): Global position.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `global_position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
 
     @overload
     def with_global_position(
@@ -170,7 +182,58 @@ class TransformComponent:  # Component (mixin class)
         *,
         x: float,
         y: float,
-    ) -> Self: ...
+    ) -> Self:
+        """Chained method to set the node's global position.
+
+        Args:
+            x (float): Global x-coordinate of node.
+            y (float): Global y-coordinate of node.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `global_position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
+
+    @overload
+    def with_global_position(
+        self,
+        *,
+        x: float,
+    ) -> Self:
+        """Chained method to set the node's global position.
+
+        Args:
+            x (float): Global x-coordinate of node.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `global_position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
+
+    @overload
+    def with_global_position(
+        self,
+        *,
+        y: float,
+    ) -> Self:
+        """Chained method to set the node's global position.
+
+        Args:
+            y (float): Global y-coordinate of node.
+
+        Raises:
+            TypeError: If all arguments are `None` at the same time.
+            TypeError: If both `global_position` and any of `x`/`y` are provided.
+
+        Returns:
+            Self: Same node instance.
+        """
 
     def with_global_position(  # type: ignore[override]
         self,
@@ -180,29 +243,12 @@ class TransformComponent:  # Component (mixin class)
         x: float | None = None,
         y: float | None = None,
     ) -> Self:
-        """Chained method to set the node's global position.
-
-        This method allows you to set the global position of the node,
-        using either a `Vec2` instance or individual `x` and `y` coordinates.
-
-        Args:
-            global_position (Vec2 | None, optional): Global position. Defaults to None.
-            x (float | None, optional): Global x-coordinate of node. Defaults to None.
-            y (float | None, optional): Global y-coordinate of node. Defaults to None.
-
-        Raises:
-            TypeError: If all arguments are `None` at the same time.
-            TypeError: If both `global_position` and any of `x`/`y` are provided.
-
-        Returns:
-            Self: Same node instance.
-        """
         if global_position is None and x is None and y is None:
-            raise TypeError(f"Not all arguments can be {None} at the same time")
+            raise TypeError(f"Not all arguments can be `{None}` at the same time")
         if global_position is not None and (x is not None or y is not None):
             raise TypeError(
-                "Chose either positional argument 'global_position' "
-                "or keyword arguments 'x' and/or 'y', not all three"
+                "Chose either positional argument `global_position` "
+                "or keyword arguments `x` and/or `y`, not all three"
             )
         if global_position is not None:
             self.global_position = global_position
